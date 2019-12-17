@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- =============================== Agenda ============================== -->
+
+    <!-- Menu principal a gauche  on a Agenda en point d'entrée-->
+    <record model="ir.actions.act_window" id="agenda_list_action">
+        <field name="name">Agenda</field>
+        <field name="res_model">myagenda.agenda</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form,kanban,graph,calendar</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">Create the first Agenda
+            </p>
+        </field>
+    </record>
+
+    <!-- Menu principal a gauche  on a l'Agenda en point d'entrée-->
+    <record model="ir.actions.act_window" id="agenda_student_list_action">
+        <field name="name">Agenda student</field>
+        <field name="res_model">myagenda.agenda</field>
+        <field name="view_mode">tree,form,kanban,graph,calendar</field>
+        <field name="domain">[('is_agendastudent','=',True)]</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">Create the first Agenda
+            </p>
+        </field>
+    </record>
+
+
+    <!-- Menu principal a gauche  on a l' Agenda en point d'entrée-->
+    <record model="ir.actions.act_window" id="agenda_pedagogic_list_action">
+        <field name="name">Agenda pedagogic</field>
+        <field name="res_model">myagenda.agenda</field>
+        <field name="view_mode">tree,form,kanban,graph,calendar</field>
+        <field name="domain">[('is_agendapedagogic','=',True)]</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">Create the first Agenda
+            </p>
+        </field>
+    </record>
+
+
+    <!-- Menu principal a gauche  on a l'Agenda en point d'entrée-->
+    <record model="ir.actions.act_window" id="agenda_administrative_list_action">
+        <field name="name">Agenda administrative</field>
+        <field name="res_model">myagenda.agenda</field>
+        <field name="view_mode">tree,form,kanban,graph,calendar</field>
+        <field name="domain">[('is_agendaadministrative','=',True)]</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">Create the first Agenda
+            </p>
+        </field>
+    </record>
+
+
+
+    <record model="ir.ui.view" id="agenda_tree_view">
+        <field name="name">agenda.tree</field>
+        <field name="model">myagenda.agenda</field>
+        <field name="arch" type="xml">
+            <tree string="agenda Tree" decoration-info="events_count&gt;0" decoration-muted="events_count == 0">
+                <field name="name" />
+                <field name="events_count" />
+                <field name="attendees_count" />
+            </tree>
+        </field>
+    </record>
+
+    <!-- Formulaire d'un agenda-->
+    <record model="ir.ui.view" id="agenda_form_view">
+        <field name="name">agenda.form</field>
+        <field name="model">myagenda.agenda</field>
+        <field name="arch" type="xml">
+            <form string="agenda Form">
+                <sheet>
+                    <field name="image" widget="image" class="oe_avatar" />
+                    <group>
+                        <group string="General" colspan="4">
+                            <field name="name" />
+                        </group>
+                        <group string="Type" colspan="6">
+                        </group>
+                        <group string="Description" colspan="6">
+                            <hr colspan="6" style="border-top: 1px solid #e0dcdc" class="oe_read_only" />
+                            <field name="description" widget="html" colspan="6" nolabel="1" />
+                            <hr colspan="6" style="border-top: 1px solid #e0dcdc" class="oe_read_only" />
+                        </group>
+                    </group>
+                    <!--To have under a tab-->
+                    <notebook>
+                        <page string="Events">
+                            <field name="events_ids">
+                                <tree string="Event's agenda" editable="bottom">
+                                    <field name="name" />
+                                    <field name="agenda_id" />
+                                    <field name="organizer_id" />
+                                    <field name="start_date" />
+                                    <field name="duration" widget="float_time" />
+                                    <field name="location" />
+                                    <field name="periodicity" />
+                                    <field name="max_registration" />
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Attendees">
+                            <field name="attendees_ids">
+                                <tree string="Attendees of agenda">
+                                    <field name="name" />
+                                    <field name="idnumber" />
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!--KanBan view-->
+    <record model="ir.ui.view" id="view_agenda_kanban">
+        <field name="name">myagenda.agenda.kanban</field>
+        <field name="model">myagenda.agenda</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="name">
+                <field name="color" />
+                <templates>
+                    <t t-name="kanban-box">
+                        <div
+                            t-attf-class="oe_kanban_color_{{kanban_getcolor(record.color.raw_value)}}
+                                                  oe_kanban_global_click_edit oe_semantic_html_override
+                                                  oe_kanban_card {{record.group_fancy==1 ? 'oe_kanban_card_fancy' : ''}}">
+                            <div class="oe_dropdown_kanban">
+                                <!-- dropdown menu -->
+                                <div class="oe_dropdown_toggle">
+                                    <i class="fa fa-bars fa-lg" />
+                                    <ul class="oe_dropdown_menu">
+                                        <li>
+                                            <a type="delete">Delete</a>
+                                        </li>
+                                        <li>
+                                            <ul class="oe_kanban_colorpicker" data-field="color" />
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="oe_clear"></div>
+                            </div>
+                            <div t-attf-class="oe_kanban_content">
+                                <!-- title -->
+                                Event:
+                                <field name="events_count" />
+                                <br />
+                                Attendees:
+                                <field name="attendees_count" />
+                                <br />
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Graph view -->
+    <record model="ir.ui.view" id="myagenda_agenda_graph_view">
+        <field name="name">myagenda.agenda.graph</field>
+        <field name="model">myagenda.agenda</field>
+        <field name="arch" type="xml">
+            <graph string="Participation events">
+                <field name="name" />
+                <field name="events_count" type="measure" />
+            </graph>
+        </field>
+    </record>
+
+    <!-- // Calendrier à débug, accéder au start_date et duration dans le model Event ???-->
+    <!-- calendar view -->
+    <record model="ir.ui.view" id="agenda_calendar_view">
+        <field name="name">myagenda.agenda.calendar</field>
+        <field name="model">myagenda.agenda</field>
+        <field name="arch" type="xml">
+            <calendar string="Agenda Calendar" date_delay="ref_duration" date_start="ref_start_date" mode="month"
+                quick_add="False" color="events_ids">
+                <field name="name" />
+            </calendar>
+        </field>
+    </record>
+
+    <!-- Add field to existing view -->
+    <record model="ir.ui.view" id="agenda_student_form_view">
+        <field name="name">Agenda student</field>
+        <field name="model">myagenda.agenda</field>
+        <field name="inherit_id" ref="agenda_form_view" />
+        <field name="arch" type="xml">
+            <xpath expr="/form/sheet/group[1]/group[2]" position="inside">
+                <field name="is_agendastudent" />
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Add field to existing view -->
+    <record model="ir.ui.view" id="agenda_pedagogic_form_view">
+        <field name="name">Agenda pedagogic</field>
+        <field name="model">myagenda.agenda</field>
+        <field name="inherit_id" ref="agenda_form_view" />
+        <field name="arch" type="xml">
+            <xpath expr="/form/sheet/group[1]/group[2]" position="inside">
+                <field name="is_agendapedagogic" />
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Add field to existing view -->
+    <record model="ir.ui.view" id="agenda_administrative_form_view">
+        <field name="name">Agenda administrative</field>
+        <field name="model">myagenda.agenda</field>
+        <field name="inherit_id" ref="agenda_form_view" />
+        <field name="arch" type="xml">
+            <xpath expr="/form/sheet/group[1]/group[2]" position="inside">
+                <field name="is_agendaadministrative" />
+            </xpath>
+        </field>
+    </record>
+
+    <!-- =============================== FIN : Agenda ========================= -->
+
+    <!-- =============================== Event ============================== -->
+    <!-- Menu principal a gauche  on a Event en point d'entrée-->
+    <record model="ir.actions.act_window" id="event_list_action">
+        <field name="name">Events</field>
+        <field name="res_model">myagenda.event</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form,kanban,graph,calendar</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">Create the first Event
+            </p>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="event_tree_view">
+        <field name="name">agenda.tree</field>
+        <field name="model">myagenda.event</field>
+        <field name="arch" type="xml">
+            <tree string="event Tree" decoration-danger="taken_registration == 100"
+                decoration-info="taken_registration&lt;100">
+                <field name="name" />
+                <field name="agenda_id" />
+                <field name="organizer_id" />
+                <field name="start_date" />
+                <field name="duration" invisible="1" />
+                <field name="location" />
+                <field name="taken_registration" widget="progressbar" />
+            </tree>
+        </field>
+    </record>
+
+    <!-- Formulaire d'une event-->
+    <record model="ir.ui.view" id="event_form_view">
+        <field name="name">event.form</field>
+        <field name="model">myagenda.event</field>
+        <field name="arch" type="xml">
+            <form string="event Form">
+                <sheet>
+                    <field name="image" widget="image" class="oe_avatar" />
+                    <group>
+                        <group string="General">
+                            <field name="name" />
+                            <field name="agenda_id" options="{'no_quick_create':True,'no_create_edit':True}" />
+                            <field name="organizer_id" options="{'no_quick_create':True,'no_create_edit':True}" />
+                            <field name="typeEvent" widget="selection" />
+                        </group>
+                        <group string="Schedule">
+                            <field name="start_date" />
+                            <field name="duration" widget="float_time" />
+                            <field name="location" />
+                            <field name="periodicity" />
+                        </group>
+                        <group string="Description" colspan="6" style="">
+                            <hr colspan="6" style="border-top: 1px solid #e0dcdc" class="oe_read_only" />
+                            <field name="description" nolabel="1" widget="html" />
+                            <hr colspan="6" style="border-top: 1px solid #e0dcdc" class="oe_read_only" />
+
+                        </group>
+                        <group colspan="4" style="text-align:center;" class="oe_read_only">
+                            <field name="taken_registration" nolabel="1" widget="gauge"
+                                style="width:150px;height:120px;cursor:pointer;" />
+                        </group>
+                        <group class="oe_edit_only" colspan="2">
+                            <field name="attendees_count" />
+                            <field name="max_registration" />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Attendees">
+                            <field name="attendees_ids" attrs="{'readonly':[
+                            ('max_registration', '=', 0 )]}">
+                                <tree string="Attendees of agenda">
+                                    <field name="name" />
+                                    <field name="idnumber" />
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!--KanBan view-->
+    <record model="ir.ui.view" id="view_event_kanban">
+        <field name="name">myagenda.event.kanban</field>
+        <field name="model">myagenda.event</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="agenda_id">
+                <field name="color" />
+                <templates>
+                    <t t-name="kanban-box">
+                        <div
+                            t-attf-class="oe_kanban_color_{{kanban_getcolor(record.color.raw_value)}}
+                                                  oe_kanban_global_click_edit oe_semantic_html_override
+                                                  oe_kanban_card {{record.group_fancy==1 ? 'oe_kanban_card_fancy' : ''}}">
+                            <div class="oe_dropdown_kanban">
+                                <!-- dropdown menu -->
+                                <div class="oe_dropdown_toggle">
+                                    <i class="fa fa-bars fa-lg" />
+                                    <ul class="oe_dropdown_menu">
+                                        <li>
+                                            <a type="delete">Delete</a>
+                                        </li>
+                                        <li>
+                                            <ul class="oe_kanban_colorpicker" data-field="color" />
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="oe_clear"></div>
+                            </div>
+                            <div t-attf-class="oe_kanban_content">
+                                <!-- title -->
+                                Event name:
+                                <field name="name" />
+                                <br />
+                                Start date:
+                                <field name="start_date" />
+                                <br />
+                                Organizer:
+                                <field name="organizer_id" />
+                                <br />
+                                Type:
+                                <field name="typeEvent" />
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Graph view -->
+    <record model="ir.ui.view" id="myagenda_event_graph_view">
+        <field name="name">myagenda.event.graph</field>
+        <field name="model">myagenda.event</field>
+        <field name="arch" type="xml">
+            <graph string="Event by agenda">
+                <field name="name" />
+                <field name="taken_registration" type="measure" />
+            </graph>
+        </field>
+    </record>
+
+    <!-- calendar view -->
+    <record model="ir.ui.view" id="event_calendar_view">
+        <field name="name">myagenda.event.calendar</field>
+        <field name="model">myagenda.event</field>
+        <field name="arch" type="xml">
+            <calendar string="Agenda event" date_delay="duration" date_start="start_date" mode="month" quick_add="False"
+                color="agenda_id">
+                <field name="name" />
+                <field name="typeEvent" />
+                <field name="location" />
+                <field name="periodicity" />
+            </calendar>
+        </field>
+    </record>
+
+    <!-- =============================== Fin: Event ============================== -->
+
+
+
+
+    <!-- =============================== Menu ============================== -->
+
+    <!-- top level menu: no parent -->
+    <menuitem id="main_myagenda_menu" name="My Agenda" />
+    <!-- A first level in the left side menu is needed
+             before using action= attribute -->
+    <menuitem id="myagenda_menu" name="My Agenda" parent="main_myagenda_menu" />
+    <!-- Full id location:
+             action="mylibrary.course_list_action"
+             It is not required when it is the same module -->
+
+    <!-- On lie le menu agenda au menu principal -->
+    <menuitem id="agenda_student_menu" name="Agenda student" parent="myagenda_menu"
+        action="agenda_student_list_action" />
+    <menuitem id="agenda_pedagogic_menu" name="Agenda pedagogic" parent="myagenda_menu"
+        action="agenda_pedagogic_list_action" />
+
+    <menuitem id="agenda_administrative_menu" name="Agenda administrative" parent="myagenda_menu"
+        action="agenda_administrative_list_action" />
+
+
+    <menuitem id="myevent_menu" name="My events" parent="main_myagenda_menu" />
+    <!-- On lie le menu events au menu principal -->
+    <menuitem id="event_menu" name="Events" parent="myevent_menu" action="event_list_action" />
+
+    <!-- =============================== FIN: Menu ============================== -->
+
+
+</odoo>

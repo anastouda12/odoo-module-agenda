@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <odoo>
+
+        <!-- Add field to existing view -->
+        <record model="ir.ui.view" id="partner_attendees_form_view">
+            <field name="name">partner.attendees</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <notebook position="inside">
+                    <page string="Agenda event">
+                        <group>
+                            <field name="role" widget="radio"/>
+                            <field name="idnumber"/>
+                             </group>
+                             <notebook position="inside">
+                             <page string="Agenda attended">
+                                 <field name="agenda_ids"/>
+                             </page>
+                             <page string="Events attended">
+                                <field name="events_ids"/>
+                             </page>
+                             </notebook>
+                    </page>
+                </notebook>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="staff_list_action">
+            <field name="name">Staff</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('role','=','staff')]</field>
+        </record>
+
+        <record model="ir.actions.act_window" id="attendees_list_action">
+            <field name="name">Attendees</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('role','=','attendee')]</field>
+        </record>
+        <menuitem id="configuration_menu" name="Members"
+                  parent="main_myagenda_menu"/>
+        <menuitem id="staff_menu" name="Staff"
+                  parent="configuration_menu"
+                  action="staff_list_action"/>
+
+        <menuitem id="attendees_menu" name="Attendees"
+                  parent="configuration_menu"
+                  action="attendees_list_action"/>
+
+</odoo>
