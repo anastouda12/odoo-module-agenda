@@ -20,7 +20,8 @@
         <field name="name">Agenda student</field>
         <field name="res_model">myagenda.agenda</field>
         <field name="view_mode">tree,form,kanban,graph,calendar</field>
-        <field name="domain">[('is_agendastudent','=',True)]</field>
+        <field name="domain">[('type_agenda','=',"Agenda student")]</field>
+        <field name="context">{"default_type_agenda" : "Agenda student"}</field>
         <field name="help" type="html">
             <p class="oe_view_nocontent_create">Create the first Agenda
             </p>
@@ -33,7 +34,8 @@
         <field name="name">Agenda pedagogic</field>
         <field name="res_model">myagenda.agenda</field>
         <field name="view_mode">tree,form,kanban,graph,calendar</field>
-        <field name="domain">[('is_agendapedagogic','=',True)]</field>
+        <field name="domain">[('type_agenda','=',"Agenda pedagogic")]</field>
+        <field name="context">{"default_type_agenda" : "Agenda pedagogic"}</field>
         <field name="help" type="html">
             <p class="oe_view_nocontent_create">Create the first Agenda
             </p>
@@ -46,7 +48,8 @@
         <field name="name">Agenda administrative</field>
         <field name="res_model">myagenda.agenda</field>
         <field name="view_mode">tree,form,kanban,graph,calendar</field>
-        <field name="domain">[('is_agendaadministrative','=',True)]</field>
+        <field name="domain">[('type_agenda','=',"Agenda administrative")]</field>
+        <field name="context">{"default_type_agenda" : "Agenda administrative"}</field>
         <field name="help" type="html">
             <p class="oe_view_nocontent_create">Create the first Agenda
             </p>
@@ -61,6 +64,7 @@
         <field name="arch" type="xml">
             <tree string="agenda Tree" decoration-info="events_count&gt;0" decoration-muted="events_count == 0">
                 <field name="name" />
+                <field name="type_agenda" />
                 <field name="events_count" />
                 <field name="attendees_count" />
             </tree>
@@ -76,10 +80,9 @@
                 <sheet>
                     <field name="image" widget="image" class="oe_avatar" />
                     <group>
-                        <group string="General" colspan="4">
+                        <group string="General">
                             <field name="name" />
-                        </group>
-                        <group string="Type" colspan="6">
+                            <field name="type_agenda" />
                         </group>
                         <group string="Description" colspan="6">
                             <hr colspan="6" style="border-top: 1px solid #e0dcdc" class="oe_read_only" />
@@ -179,46 +182,10 @@
         <field name="name">myagenda.agenda.calendar</field>
         <field name="model">myagenda.agenda</field>
         <field name="arch" type="xml">
-            <calendar string="Agenda Calendar" date_delay="ref_duration" date_start="ref_start_date" mode="month"
+            <calendar string="Agenda Calendar" date_delay="events_ids" date_start="events_ids" mode="month"
                 quick_add="False" color="events_ids">
                 <field name="name" />
             </calendar>
-        </field>
-    </record>
-
-    <!-- Add field to existing view -->
-    <record model="ir.ui.view" id="agenda_student_form_view">
-        <field name="name">Agenda student</field>
-        <field name="model">myagenda.agenda</field>
-        <field name="inherit_id" ref="agenda_form_view" />
-        <field name="arch" type="xml">
-            <xpath expr="/form/sheet/group[1]/group[2]" position="inside">
-                <field name="is_agendastudent" />
-            </xpath>
-        </field>
-    </record>
-
-    <!-- Add field to existing view -->
-    <record model="ir.ui.view" id="agenda_pedagogic_form_view">
-        <field name="name">Agenda pedagogic</field>
-        <field name="model">myagenda.agenda</field>
-        <field name="inherit_id" ref="agenda_form_view" />
-        <field name="arch" type="xml">
-            <xpath expr="/form/sheet/group[1]/group[2]" position="inside">
-                <field name="is_agendapedagogic" />
-            </xpath>
-        </field>
-    </record>
-
-    <!-- Add field to existing view -->
-    <record model="ir.ui.view" id="agenda_administrative_form_view">
-        <field name="name">Agenda administrative</field>
-        <field name="model">myagenda.agenda</field>
-        <field name="inherit_id" ref="agenda_form_view" />
-        <field name="arch" type="xml">
-            <xpath expr="/form/sheet/group[1]/group[2]" position="inside">
-                <field name="is_agendaadministrative" />
-            </xpath>
         </field>
     </record>
 

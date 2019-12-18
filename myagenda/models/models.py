@@ -46,10 +46,10 @@ class Agenda(models.Model):
 
     color = fields.Integer()
 
-    ref_start_date = fields.Datetime(
-        related='events_ids.start_date', store=True)
-
-    ref_duration = fields.Float(related='events_ids.duration', store=True)
+    type_agenda = fields.Selection(string='Type', selection=[],
+                                   required=True,
+                                   readonly=True
+                                   )
 
     @api.depends('events_ids')
     def _compute_event(self):
@@ -89,24 +89,22 @@ class Agenda(models.Model):
 class AgendaStudent(models.Model):
     _inherit = 'myagenda.agenda'
 
-    is_agendastudent = fields.Boolean(
-        string='Student')
+    type_agenda = fields.Selection(
+        selection_add=[('Agenda student', 'Agenda student')])
 
 
 class AgendaPedagogic(models.Model):
     _inherit = 'myagenda.agenda'
 
-    is_agendapedagogic = fields.Boolean(
-        string='Pedagogic',
-    )
+    type_agenda = fields.Selection(
+        selection_add=[('Agenda pedagogic', 'Agenda pedagogic')])
 
 
 class AgendaAdministrative(models.Model):
     _inherit = 'myagenda.agenda'
 
-    is_agendaadministrative = fields.Boolean(
-        string='Administrative',
-    )
+    type_agenda = fields.Selection(
+        selection_add=[('Agenda administrative', 'Agenda administrative')])
 
 
 class Event(models.Model):
@@ -137,7 +135,8 @@ class Event(models.Model):
         required=True
     )
 
-    duration = fields.Float(help="Duration in hours of the event")
+    duration = fields.Float(
+        help="Duration in hours of the event", digits=(4, 2))
 
     location = fields.Char(
         string='Location',
