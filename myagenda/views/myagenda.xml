@@ -96,8 +96,8 @@
                             <field name="events_ids">
                                 <tree string="Event's agenda" editable="bottom">
                                     <field name="name" />
-                                    <field name="agenda_id"/>
-                                    <field name="organizer_id" />
+                                    <field name="agenda_id" widget="selection"/>
+                                    <field name="organizer_id" widget="selection" />
                                     <field name="start_date" />
                                     <field name="duration" widget="float_time" />
                                     <field name="location" />
@@ -252,8 +252,8 @@
                         <group string="General">
                             <field name="name" />
                             <field name="type_agenda" invisible="True"/>
-                            <field name="agenda_id" options="{'no_quick_create':True,'no_create_edit':True}" domain="[('type_agenda', '=', type_agenda)]"  />
-                            <field name="organizer_id" options="{'no_quick_create':True,'no_create_edit':True}" />
+                            <field name="agenda_id" options="{'no_quick_create':True,'no_create_edit':True}" domain="[('type_agenda', '=', type_agenda)]" widget="selection"  />
+                            <field name="organizer_id" options="{'no_quick_create':True,'no_create_edit':True}" widget="selection" />
                             <field name="typeEvent" widget="selection" />
                         </group>
                         <group string="Schedule">
