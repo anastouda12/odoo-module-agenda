@@ -8,7 +8,7 @@
         <field name="name">Agenda</field>
         <field name="res_model">myagenda.agenda</field>
         <field name="view_type">form</field>
-        <field name="view_mode">tree,form,kanban,graph,calendar</field>
+        <field name="view_mode">tree,form,kanban,graph</field>
         <field name="help" type="html">
             <p class="oe_view_nocontent_create">Create the first Agenda
             </p>
@@ -19,7 +19,7 @@
     <record model="ir.actions.act_window" id="agenda_student_list_action">
         <field name="name">Agenda student</field>
         <field name="res_model">myagenda.agenda</field>
-        <field name="view_mode">tree,form,kanban,graph,calendar</field>
+        <field name="view_mode">tree,form,kanban,graph</field>
         <field name="domain">[('type_agenda','=',"Agenda student")]</field>
         <field name="context">{"default_type_agenda" : "Agenda student"}</field>
         <field name="help" type="html">
@@ -33,7 +33,7 @@
     <record model="ir.actions.act_window" id="agenda_pedagogic_list_action">
         <field name="name">Agenda pedagogic</field>
         <field name="res_model">myagenda.agenda</field>
-        <field name="view_mode">tree,form,kanban,graph,calendar</field>
+        <field name="view_mode">tree,form,kanban,graph</field>
         <field name="domain">[('type_agenda','=',"Agenda pedagogic")]</field>
         <field name="context">{"default_type_agenda" : "Agenda pedagogic"}</field>
         <field name="help" type="html">
@@ -47,7 +47,7 @@
     <record model="ir.actions.act_window" id="agenda_administrative_list_action">
         <field name="name">Agenda administrative</field>
         <field name="res_model">myagenda.agenda</field>
-        <field name="view_mode">tree,form,kanban,graph,calendar</field>
+        <field name="view_mode">tree,form,kanban,graph</field>
         <field name="domain">[('type_agenda','=',"Agenda administrative")]</field>
         <field name="context">{"default_type_agenda" : "Agenda administrative"}</field>
         <field name="help" type="html">
@@ -96,7 +96,7 @@
                             <field name="events_ids">
                                 <tree string="Event's agenda" editable="bottom">
                                     <field name="name" />
-                                    <field name="agenda_id" />
+                                    <field name="agenda_id"/>
                                     <field name="organizer_id" />
                                     <field name="start_date" />
                                     <field name="duration" widget="float_time" />
@@ -176,33 +176,52 @@
         </field>
     </record>
 
-    <!-- // Calendrier à débug, accéder au start_date et duration dans le model Event ???-->
-    <!-- calendar view -->
-    <record model="ir.ui.view" id="agenda_calendar_view">
-        <field name="name">myagenda.agenda.calendar</field>
-        <field name="model">myagenda.agenda</field>
-        <field name="arch" type="xml">
-            <calendar string="Agenda Calendar" date_delay="events_ids" date_start="events_ids" mode="month"
-                quick_add="False" color="events_ids">
-                <field name="name" />
-            </calendar>
-        </field>
-    </record>
-
     <!-- =============================== FIN : Agenda ========================= -->
 
     <!-- =============================== Event ============================== -->
     <!-- Menu principal a gauche  on a Event en point d'entrée-->
-    <record model="ir.actions.act_window" id="event_list_action">
-        <field name="name">Events</field>
+    <record model="ir.actions.act_window" id="event_student_list_action">
+        <field name="name">Events student</field>
         <field name="res_model">myagenda.event</field>
         <field name="view_type">form</field>
-        <field name="view_mode">tree,form,kanban,graph,calendar</field>
+        <field name="view_mode">calendar,tree,form,kanban,graph</field>
+        <field name="domain">[('type_agenda','=',"Agenda student")]</field>
+        <field name="context">{"default_type_agenda" : "Agenda student"}</field>
         <field name="help" type="html">
             <p class="oe_view_nocontent_create">Create the first Event
             </p>
         </field>
     </record>
+
+    <!-- Menu principal a gauche  on a Event en point d'entrée-->
+    <record model="ir.actions.act_window" id="event_pedagogic_list_action">
+        <field name="name">Events pedagogic</field>
+        <field name="res_model">myagenda.event</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">calendar,tree,form,kanban,graph</field>
+        <field name="domain">[('type_agenda','=',"Agenda pedagogic")]</field>
+        <field name="context">{"default_type_agenda" : "Agenda pedagogic"}</field>
+
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">Create the first Event
+            </p>
+        </field>
+    </record>
+
+    <!-- Menu principal a gauche  on a Event en point d'entrée-->
+    <record model="ir.actions.act_window" id="event_administrative_list_action">
+        <field name="name">Events administrative</field>
+        <field name="res_model">myagenda.event</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">calendar,tree,form,kanban,graph</field>
+        <field name="domain">[('type_agenda','=',"Agenda administrative")]</field>
+        <field name="context">{"default_type_agenda" : "Agenda administrative"}</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">Create the first Event
+            </p>
+        </field>
+    </record>
+
 
     <record model="ir.ui.view" id="event_tree_view">
         <field name="name">agenda.tree</field>
@@ -232,7 +251,8 @@
                     <group>
                         <group string="General">
                             <field name="name" />
-                            <field name="agenda_id" options="{'no_quick_create':True,'no_create_edit':True}" />
+                            <field name="type_agenda" invisible="True"/>
+                            <field name="agenda_id" options="{'no_quick_create':True,'no_create_edit':True}" domain="[('type_agenda', '=', type_agenda)]"  />
                             <field name="organizer_id" options="{'no_quick_create':True,'no_create_edit':True}" />
                             <field name="typeEvent" widget="selection" />
                         </group>
@@ -342,12 +362,12 @@
             <calendar string="Agenda event" date_delay="duration" date_start="start_date" mode="month" quick_add="False"
                 color="agenda_id">
                 <field name="name" />
-                <field name="typeEvent" />
                 <field name="location" />
                 <field name="periodicity" />
             </calendar>
         </field>
     </record>
+
 
     <!-- =============================== Fin: Event ============================== -->
 
@@ -377,7 +397,13 @@
 
     <menuitem id="myevent_menu" name="My events" parent="main_myagenda_menu" />
     <!-- On lie le menu events au menu principal -->
-    <menuitem id="event_menu" name="Events" parent="myevent_menu" action="event_list_action" />
+    <menuitem id="event_student_menu" name="Events student" parent="myevent_menu" action="event_student_list_action" />
+    <menuitem id="event_pedagogic_menu" name="Events pedagogic" parent="myevent_menu"
+        action="event_pedagogic_list_action" />
+    <menuitem id="event_administrative_menu" name="Events administrative" parent="myevent_menu"
+        action="event_administrative_list_action" />
+
+
 
     <!-- =============================== FIN: Menu ============================== -->
 

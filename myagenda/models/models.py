@@ -115,7 +115,7 @@ class Event(models.Model):
     agenda_id = fields.Many2one(
         'myagenda.agenda', String='Agenda', ondelete='cascade',
         required=True,
-        store=True
+        store=True,
     )
     organizer_id = fields.Many2one(
         'res.partner', String='Organizer', ondelete='cascade', domain=[('role', '=', "staff")],
@@ -130,13 +130,16 @@ class Event(models.Model):
         required=False
     )
 
+    type_agenda = fields.Selection(
+        [('Agenda administrative', 'Agenda administrative'), ('Agenda pedagogic', 'Agenda pedagogic'), ('Agenda student', 'Agenda student')], readonly=True, store=True)
+
     start_date = fields.Datetime(
         string='Date',
         required=True
     )
 
     duration = fields.Float(
-        help="Duration in hours of the event", digits=(4, 2))
+        help="Duration of the event")
 
     location = fields.Char(
         string='Location',
