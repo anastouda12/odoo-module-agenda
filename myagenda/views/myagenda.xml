@@ -403,7 +403,7 @@
     <menuitem id="event_administrative_menu" name="Events administrative" parent="myevent_menu"
         action="event_administrative_list_action" />
 
-    <menuitem id="myreport_menu" name="My reports" parent="main_myagenda_menu" />
+    <menuitem id="myreport_menu" name="My reports" parent="main_myagenda_menu"  groups="myagenda.group_teacher,myagenda.group_administrator,myagenda.group_administrative" />
 
 
 

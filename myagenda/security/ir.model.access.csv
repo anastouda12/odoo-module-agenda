@@ -1,1 +1,7 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
+
+agenda_read_all, agenda all,model_myagenda_agenda,,1,0,0,0
+agenda_administrator, agenda admin,model_myagenda_agenda,myagenda.group_administrator,1,1,1,1
+
+
+event_administrator, event admin,model_myagenda_event,myagenda.group_administrator,1,1,1,1
