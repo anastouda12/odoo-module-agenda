@@ -1,1 +1,28 @@
 id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
+
+agenda_administrator, agenda admin,model_myagenda_agenda,myagenda.group_administrator,1,1,1,1
+event_administrator, event admin,model_myagenda_event,myagenda.group_administrator,1,1,1,1
+
+
+agenda_student_read_all, agenda student all,model_myagenda_agenda_student,,1,0,0,0
+agenda_pedago_read_all, agenda pedago all,model_myagenda_agenda_pedagogic,,1,0,0,0
+agenda_administ_read_all, agenda administ all,model_myagenda_agenda_administrative,,1,0,0,0
+
+event_student_read_all, event student all,model_myagenda_event_student,,1,0,0,0
+event_pedago_read_all, event pedago all,model_myagenda_event_pedagogic,,1,0,0,0
+event_administ_read_all, event administ all,model_myagenda_event_administrative,,1,0,0,0
+
+
+
+
+agenda_student_rw, agenda rw student,model_myagenda_agenda_student,myagenda.group_student,1,1,1,0
+agenda_pedagogic_rw, agenda rw teacher,model_myagenda_agenda_pedagogic,myagenda.group_teacher,1,1,1,1
+agenda_administrative_rw, agenda rw administrative,model_myagenda_agenda_administrative,myagenda.group_administrative,1,1,1,1
+
+event_student_rw, event rw student,model_myagenda_event_student,myagenda.group_student,1,1,1,0
+event_pedagogic_rw, event rw pedagogic,model_myagenda_event_pedagogic,myagenda.group_teacher,1,1,1,1
+event_administrative_rw, event rw administrative,model_myagenda_event_administrative,myagenda.group_administrative,1,1,1,1
+
+
+
+
