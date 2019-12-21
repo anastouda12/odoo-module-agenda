@@ -47,7 +47,8 @@ class Agenda(models.Model):
     color = fields.Integer()
 
     type_agenda = fields.Char(
-        string='Agenda default',
+        string='Type',
+        default="Agenda default",
         readonly=True
     )
 
@@ -91,9 +92,9 @@ class AgendaStudent(models.Model):
     _inherit = 'myagenda.agenda'
 
     type_agenda = fields.Char(
-        string='Agenda student',
+        string='Type',
+        default="Agenda student",
         readonly=True
-
     )
     events_ids = fields.One2many(
         'myagenda.event.student', 'agenda_id', string='Events', ondelete='cascade',
@@ -106,7 +107,8 @@ class AgendaPedagogic(models.Model):
     _inherit = 'myagenda.agenda'
 
     type_agenda = fields.Char(
-        string='Agenda pedagogic',
+        string='Type',
+        default="Agenda pedagogic",
         readonly=True
     )
     events_ids = fields.One2many(
@@ -120,7 +122,8 @@ class AgendaAdministrative(models.Model):
     _inherit = 'myagenda.agenda'
 
     type_agenda = fields.Char(
-        string='Agenda administrative',
+        string='Type',
+        default="Agenda administrative",
         readonly=True
     )
     events_ids = fields.One2many(
@@ -247,6 +250,13 @@ class Event(models.Model):
 
         default['name'] = new_name
         return super(Event, self).copy(default)
+
+    @api.constrains('attendees_ids')
+    def _verify_valid_attendees(self):
+        for r in self:
+            if r.attendees_ids and r.attendees_ids not in r.agenda_id.attendees_ids:
+                raise exceptions.ValidationError(
+                    _("Attendee not registered in the corresponding agenda"))
 
     _sql_constraints = [
         ('name_description_check',

@@ -442,7 +442,7 @@
         <field name="name">myagenda.event.calendar</field>
         <field name="model">myagenda.event</field>
         <field name="arch" type="xml">
-            <calendar string="Agenda event" date_delay="duration" date_start="start_date" mode="month" quick_add="False"
+            <calendar string="Agenda event" date_delay="duration" date_start="start_date" mode="month"
                 color="agenda_id">
                 <field name="name" />
                 <field name="location" />
