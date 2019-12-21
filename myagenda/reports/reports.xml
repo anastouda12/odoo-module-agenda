@@ -15,33 +15,28 @@
         <field name="dpi">90</field>
     </record>
 
-    <!--    <template id="report_event_view">
-        <t t-call="web.html_container">
-            <t t-foreach="docs" t-as="doc">
-                <t t-call="web.external_layout">
-                    <div class="page">
-                        <h2 t-field="doc.name"/>
-                        <p>From <span t-field="doc.start_date"/> to <span t-field="doc.end_date"/></p>
-                        <h3>Attendees:</h3>
-                        <ul>
-                            <t t-foreach="doc.attendee_ids" t-as="attendee">
-                                <li><span t-field="attendee.name"/></li>
-                            </t>
-                        </ul>
-                    </div>
-                </t>
-            </t>
-        </t>
-    </template>
-    -->
+     <record model="report.paperformat" id="paperformat_attendees_event_report">
+        <field name="name">paperformat.attendees.event.report</field>
+        <field name="default" eval="True" />
+        <field name="format">A4</field>
+        <field name="page_width">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">30</field>
+        <field name="margin_right">5</field>
+        <field name="margin_bottom">10</field>
+        <field name="margin_left">5</field>
+        <field name="header_line" eval="False" />
+        <field name="header_spacing">20</field>
+        <field name="dpi">90</field>
+    </record>
 
-    <report id="event_report" model="myagenda.event.report.wizard" string="Events Report"
-        report_type="qweb-pdf" name="myagenda.event_report_view"
-        paperformat="paperformat_agenda_event_report" menu="False" />
+    <report id="event_report" model="myagenda.event.report.wizard" string="Events Report" report_type="qweb-pdf"
+        name="myagenda.event_report_view" paperformat="paperformat_agenda_event_report" menu="False" />
 
-    <report id="attendees_event_report" model="myagenda.attendees_event.report.wizard" string="Attendees Report"
-        report_type="qweb-pdf" name="myagenda.attendees_event_report_view"
-         paperformat="paperformat_agenda_event_report" menu="False" />
+
+    <report id="report_attendees" model="myagenda.event.student" string="Attendees Report"
+        name="myagenda.report_attendees_view" file="myagenda.report_attendees" report_type="qweb-pdf" paperformat="paperformat_attendees_event_report"  />
 
 
     <template id="event_report_view">
@@ -118,58 +113,49 @@
     </template>
 
 
-    <template id="attendees_event_report_view">
-        <div class="page">
-            <div class="header" style="border-bottom: 1px solid black;background-color: #14c9ba;color:white;">
-                <h3 class="text-center" style="font-family: sans-serif;">Attendees Event Report</h3>
-                <h4 class="text-center">
-                    <strong><t t-esc="events_ids" /></strong>
-                </h4>
-            </div>
-            <div class="article">
-                <table class="table table-condensed table-bordered" style="width: 100%">
-                    <thead>
-                        <th class="text-center" style="background-color: #258f8f;color: white;padding: 2px 10px;">ID
-                        </th>
-                        <th class="text-center" style="background-color: #258f8f;color: white;padding: 2px 10px;">Name
-                        </th>
-                        <th class="text-center" style="background-color: #258f8f;color: white;padding: 2px 10px;">Role
-                        </th>
-                    </thead>
-                    <tbody>
-                        <t t-foreach="docs" t-as="doc">
-                            <tr>
-                                <td style="padding: 2px 10px;">
-                                    <span t-esc="doc['idnumber']" />
-                                </td>
-                                <td style="padding: 2px 10px;">
-                                    <span t-esc="doc['name']" />
-                                </td>
-                                <td style="padding: 2px 10px;">
-                                    <span t-esc="doc['role']" />
-                                </td>
-                            </tr>
-                        </t>
-                    </tbody>
-                </table>
-            </div>
-            <div class="footer" style="background-color: #eaf2fb;">
-                <div class="row text-center" style="border-top: 1px solid black;">
-                    <div class="col-xs-3 col-xs-offset-9 text-right">
-                        <ul class="list-inline" style="margin-top:10px;">
-                            <li>Page:</li>
-                            <li>
-                                <span class="page" />
-                            </li>
-                            <li>/</li>
-                            <li>
-                                <span class="topage" />
-                            </li>
-                        </ul>
+    <template id="report_attendees_view">
+            <t t-foreach="docs" t-as="doc">
+                    <div class="page">
+                        <div class="header"
+                            style="border-bottom: 1px solid black;background-color: #14c9ba;color:white;">
+                            <h3 class="text-center" style="font-family: sans-serif;">Attendees Event Report</h3>
+                            <h4 class="text-center">
+                                <strong>
+                                    <p t-field="doc.name" /></strong>
+                            </h4>
+                        </div>
+                        <div class="article">
+                            <table class="table table-condensed table-bordered" style="width: 100%">
+                                <thead>
+                                    <th class="text-center"
+                                        style="background-color: #258f8f;color: white;padding: 2px 10px;">ID
+                                    </th>
+                                    <th class="text-center"
+                                        style="background-color: #258f8f;color: white;padding: 2px 10px;">Name
+                                    </th>
+                                    <th class="text-center"
+                                        style="background-color: #258f8f;color: white;padding: 2px 10px;">Role
+                                    </th>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="doc.attendees_ids" t-as="attendee">
+                                        <tr>
+                                            <td style="padding: 2px 10px;">
+                                                <span t-field="attendee.idnumber" />
+                                            </td>
+                                            <td style="padding: 2px 10px;">
+                                                <span t-field="attendee.name" />
+                                            </td>
+                                            <td style="padding: 2px 10px;">
+                                                <span t-field="attendee.role" />
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                </div>
-            </div>
-        </div>
+                </t>
     </template>
 
 </odoo>

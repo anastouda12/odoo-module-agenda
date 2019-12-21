@@ -18,10 +18,8 @@
     <!-- Menu principal a gauche  on a l'Agenda en point d'entrée-->
     <record model="ir.actions.act_window" id="agenda_student_list_action">
         <field name="name">Agenda student</field>
-        <field name="res_model">myagenda.agenda</field>
+        <field name="res_model">myagenda.agenda.student</field>
         <field name="view_mode">tree,form,kanban,graph</field>
-        <field name="domain">[('type_agenda','=',"Agenda student")]</field>
-        <field name="context">{"default_type_agenda" : "Agenda student"}</field>
         <field name="help" type="html">
             <p class="oe_view_nocontent_create">Create the first Agenda
             </p>
@@ -32,10 +30,8 @@
     <!-- Menu principal a gauche  on a l' Agenda en point d'entrée-->
     <record model="ir.actions.act_window" id="agenda_pedagogic_list_action">
         <field name="name">Agenda pedagogic</field>
-        <field name="res_model">myagenda.agenda</field>
+        <field name="res_model">myagenda.agenda.pedagogic</field>
         <field name="view_mode">tree,form,kanban,graph</field>
-        <field name="domain">[('type_agenda','=',"Agenda pedagogic")]</field>
-        <field name="context">{"default_type_agenda" : "Agenda pedagogic"}</field>
         <field name="help" type="html">
             <p class="oe_view_nocontent_create">Create the first Agenda
             </p>
@@ -46,10 +42,8 @@
     <!-- Menu principal a gauche  on a l'Agenda en point d'entrée-->
     <record model="ir.actions.act_window" id="agenda_administrative_list_action">
         <field name="name">Agenda administrative</field>
-        <field name="res_model">myagenda.agenda</field>
+        <field name="res_model">myagenda.agenda.administrative</field>
         <field name="view_mode">tree,form,kanban,graph</field>
-        <field name="domain">[('type_agenda','=',"Agenda administrative")]</field>
-        <field name="context">{"default_type_agenda" : "Agenda administrative"}</field>
         <field name="help" type="html">
             <p class="oe_view_nocontent_create">Create the first Agenda
             </p>
@@ -93,10 +87,10 @@
                     <!--To have under a tab-->
                     <notebook>
                         <page string="Events">
-                            <field name="events_ids">
+                            <field name="events_ids"  context="{'default_agenda_id' : id}">
                                 <tree string="Event's agenda" editable="bottom">
                                     <field name="name" />
-                                    <field name="agenda_id" widget="selection"/>
+                                    <field name="agenda_id" widget="selection" invisible="1" />
                                     <field name="organizer_id" widget="selection" />
                                     <field name="start_date" />
                                     <field name="duration" widget="float_time" />
@@ -119,6 +113,7 @@
             </form>
         </field>
     </record>
+
 
     <!--KanBan view-->
     <record model="ir.ui.view" id="view_agenda_kanban">
@@ -176,17 +171,107 @@
         </field>
     </record>
 
+
+    <!--                       Agenda student features                                 -->
+    <record id="agenda_student_tree_view" model="ir.actions.act_window.view">
+        <field eval="2" name="sequence" />
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="agenda_tree_view" />
+        <field name="act_window_id" ref="agenda_student_list_action" />
+    </record>
+
+    <record id="agenda_student_form_view" model="ir.actions.act_window.view">
+        <field eval="2" name="sequence" />
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="agenda_form_view" />
+        <field name="act_window_id" ref="agenda_student_list_action" />
+    </record>
+
+    <record id="agenda_student_kanban_view" model="ir.actions.act_window.view">
+        <field eval="2" name="sequence" />
+        <field name="view_mode">kanban</field>
+        <field name="view_id" ref="view_agenda_kanban" />
+        <field name="act_window_id" ref="agenda_student_list_action" />
+    </record>
+
+
+    <record id="agenda_student_graph_view" model="ir.actions.act_window.view">
+        <field eval="2" name="sequence" />
+        <field name="view_mode">graph</field>
+        <field name="view_id" ref="myagenda_agenda_graph_view" />
+        <field name="act_window_id" ref="agenda_student_list_action" />
+    </record>
+
+    <!--                       Agenda pedagogic features                                -->
+    <record id="agenda_pedagogic_tree_view" model="ir.actions.act_window.view">
+        <field eval="2" name="sequence" />
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="agenda_tree_view" />
+        <field name="act_window_id" ref="agenda_pedagogic_list_action" />
+    </record>
+
+    <record id="agenda_pedagogic_form_view" model="ir.actions.act_window.view">
+        <field eval="2" name="sequence" />
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="agenda_form_view" />
+        <field name="act_window_id" ref="agenda_pedagogic_list_action" />
+    </record>
+
+    <record id="agenda_pedagogic_kanban_view" model="ir.actions.act_window.view">
+        <field eval="2" name="sequence" />
+        <field name="view_mode">kanban</field>
+        <field name="view_id" ref="view_agenda_kanban" />
+        <field name="act_window_id" ref="agenda_pedagogic_list_action" />
+    </record>
+
+
+    <record id="agenda_pedagogic_graph_view" model="ir.actions.act_window.view">
+        <field eval="2" name="sequence" />
+        <field name="view_mode">graph</field>
+        <field name="view_id" ref="myagenda_agenda_graph_view" />
+        <field name="act_window_id" ref="agenda_pedagogic_list_action" />
+    </record>
+
+    <!--                       Agenda administrative features                                 -->
+    <record id="agenda_administrative_tree_view" model="ir.actions.act_window.view">
+        <field eval="2" name="sequence" />
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="agenda_tree_view" />
+        <field name="act_window_id" ref="agenda_administrative_list_action" />
+    </record>
+
+    <record id="agenda_administrative_form_view" model="ir.actions.act_window.view">
+        <field eval="2" name="sequence" />
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="agenda_form_view" />
+        <field name="act_window_id" ref="agenda_administrative_list_action" />
+    </record>
+
+    <record id="agenda_administrative_kanban_view" model="ir.actions.act_window.view">
+        <field eval="2" name="sequence" />
+        <field name="view_mode">kanban</field>
+        <field name="view_id" ref="view_agenda_kanban" />
+        <field name="act_window_id" ref="agenda_administrative_list_action" />
+    </record>
+
+
+    <record id="agenda_administrative_graph_view" model="ir.actions.act_window.view">
+        <field eval="2" name="sequence" />
+        <field name="view_mode">graph</field>
+        <field name="view_id" ref="myagenda_agenda_graph_view" />
+        <field name="act_window_id" ref="agenda_administrative_list_action" />
+    </record>
+
+
     <!-- =============================== FIN : Agenda ========================= -->
 
     <!-- =============================== Event ============================== -->
     <!-- Menu principal a gauche  on a Event en point d'entrée-->
     <record model="ir.actions.act_window" id="event_student_list_action">
         <field name="name">Events student</field>
-        <field name="res_model">myagenda.event</field>
+        <field name="res_model">myagenda.event.student</field>
         <field name="view_type">form</field>
         <field name="view_mode">calendar,tree,form,kanban,graph</field>
-        <field name="domain">[('type_agenda','=',"Agenda student")]</field>
-        <field name="context">{"default_type_agenda" : "Agenda student"}</field>
         <field name="help" type="html">
             <p class="oe_view_nocontent_create">Create the first Event
             </p>
@@ -196,11 +281,9 @@
     <!-- Menu principal a gauche  on a Event en point d'entrée-->
     <record model="ir.actions.act_window" id="event_pedagogic_list_action">
         <field name="name">Events pedagogic</field>
-        <field name="res_model">myagenda.event</field>
+        <field name="res_model">myagenda.event.pedagogic</field>
         <field name="view_type">form</field>
         <field name="view_mode">calendar,tree,form,kanban,graph</field>
-        <field name="domain">[('type_agenda','=',"Agenda pedagogic")]</field>
-        <field name="context">{"default_type_agenda" : "Agenda pedagogic"}</field>
 
         <field name="help" type="html">
             <p class="oe_view_nocontent_create">Create the first Event
@@ -211,11 +294,9 @@
     <!-- Menu principal a gauche  on a Event en point d'entrée-->
     <record model="ir.actions.act_window" id="event_administrative_list_action">
         <field name="name">Events administrative</field>
-        <field name="res_model">myagenda.event</field>
+        <field name="res_model">myagenda.event.administrative</field>
         <field name="view_type">form</field>
         <field name="view_mode">calendar,tree,form,kanban,graph</field>
-        <field name="domain">[('type_agenda','=',"Agenda administrative")]</field>
-        <field name="context">{"default_type_agenda" : "Agenda administrative"}</field>
         <field name="help" type="html">
             <p class="oe_view_nocontent_create">Create the first Event
             </p>
@@ -251,9 +332,11 @@
                     <group>
                         <group string="General">
                             <field name="name" />
-                            <field name="type_agenda" invisible="True"/>
-                            <field name="agenda_id" options="{'no_quick_create':True,'no_create_edit':True}" domain="[('type_agenda', '=', type_agenda)]" widget="selection"  />
-                            <field name="organizer_id" options="{'no_quick_create':True,'no_create_edit':True}" widget="selection" />
+                            <field name="type_agenda" invisible="True" />
+                            <field name="agenda_id" options="{'no_quick_create':True,'no_create_edit':True}"
+                                widget="selection" />
+                            <field name="organizer_id" options="{'no_quick_create':True,'no_create_edit':True}"
+                                widget="selection" />
                             <field name="typeEvent" widget="selection" />
                         </group>
                         <group string="Schedule">
@@ -369,6 +452,133 @@
     </record>
 
 
+
+    <!--                       Event student features                                -->
+
+    <record id="event_student_calendar_view" model="ir.actions.act_window.view">
+        <field eval="2" name="sequence" />
+        <field name="view_mode">calendar</field>
+        <field name="view_id" ref="event_calendar_view" />
+        <field name="act_window_id" ref="event_student_list_action" />
+    </record>
+
+    <record id="event_student_tree_view" model="ir.actions.act_window.view">
+        <field eval="2" name="sequence" />
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="event_tree_view" />
+        <field name="act_window_id" ref="event_student_list_action" />
+    </record>
+
+    <record id="event_student_form_view" model="ir.actions.act_window.view">
+        <field eval="2" name="sequence" />
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="event_form_view" />
+        <field name="act_window_id" ref="event_student_list_action" />
+    </record>
+
+    <record id="event_student_kanban_view" model="ir.actions.act_window.view">
+        <field eval="2" name="sequence" />
+        <field name="view_mode">kanban</field>
+        <field name="view_id" ref="view_event_kanban" />
+        <field name="act_window_id" ref="event_student_list_action" />
+    </record>
+
+
+    <record id="event_student_graph_view" model="ir.actions.act_window.view">
+        <field eval="2" name="sequence" />
+        <field name="view_mode">graph</field>
+        <field name="view_id" ref="myagenda_event_graph_view" />
+        <field name="act_window_id" ref="event_student_list_action" />
+    </record>
+
+
+
+    <!--                       Event pedagogic features                                -->
+
+
+    <record id="event_pedagogic_calendar_view" model="ir.actions.act_window.view">
+        <field eval="2" name="sequence" />
+        <field name="view_mode">calendar</field>
+        <field name="view_id" ref="event_calendar_view" />
+        <field name="act_window_id" ref="event_pedagogic_list_action" />
+    </record>
+
+    <record id="event_pedagogic_tree_view" model="ir.actions.act_window.view">
+        <field eval="2" name="sequence" />
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="event_tree_view" />
+        <field name="act_window_id" ref="event_pedagogic_list_action" />
+    </record>
+
+    <record id="event_pedagogic_form_view" model="ir.actions.act_window.view">
+        <field eval="2" name="sequence" />
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="event_form_view" />
+        <field name="act_window_id" ref="event_pedagogic_list_action" />
+    </record>
+
+    <record id="event_pedagogic_kanban_view" model="ir.actions.act_window.view">
+        <field eval="2" name="sequence" />
+        <field name="view_mode">kanban</field>
+        <field name="view_id" ref="view_event_kanban" />
+        <field name="act_window_id" ref="event_pedagogic_list_action" />
+    </record>
+
+
+    <record id="event_pedagogic_graph_view" model="ir.actions.act_window.view">
+        <field eval="2" name="sequence" />
+        <field name="view_mode">graph</field>
+        <field name="view_id" ref="myagenda_event_graph_view" />
+        <field name="act_window_id" ref="event_pedagogic_list_action" />
+    </record>
+
+    <!--                       Event administrative features                                 -->
+
+    <record id="event_administrative_calendar_view" model="ir.actions.act_window.view">
+        <field eval="2" name="sequence" />
+        <field name="view_mode">calendar</field>
+        <field name="view_id" ref="event_calendar_view" />
+        <field name="act_window_id" ref="event_administrative_list_action" />
+    </record>
+    
+    <record id="event_administrative_calendar_view" model="ir.actions.act_window.view">
+        <field eval="2" name="sequence" />
+        <field name="view_mode">calendar</field>
+        <field name="view_id" ref="event_calendar_view" />
+        <field name="act_window_id" ref="event_administrative_list_action" />
+    </record>
+    <record id="event_administrative_tree_view" model="ir.actions.act_window.view">
+        <field eval="2" name="sequence" />
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="event_tree_view" />
+        <field name="act_window_id" ref="event_administrative_list_action" />
+    </record>
+
+    <record id="event_administrative_form_view" model="ir.actions.act_window.view">
+        <field eval="2" name="sequence" />
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="event_form_view" />
+        <field name="act_window_id" ref="event_administrative_list_action" />
+    </record>
+
+    <record id="event_administrative_kanban_view" model="ir.actions.act_window.view">
+        <field eval="2" name="sequence" />
+        <field name="view_mode">kanban</field>
+        <field name="view_id" ref="view_event_kanban" />
+        <field name="act_window_id" ref="event_administrative_list_action" />
+    </record>
+
+
+    <record id="event_administrative_graph_view" model="ir.actions.act_window.view">
+        <field eval="2" name="sequence" />
+        <field name="view_mode">graph</field>
+        <field name="view_id" ref="myagenda_event_graph_view" />
+        <field name="act_window_id" ref="event_administrative_list_action" />
+    </record>
+
+
+
+
     <!-- =============================== Fin: Event ============================== -->
 
 
@@ -403,7 +613,8 @@
     <menuitem id="event_administrative_menu" name="Events administrative" parent="myevent_menu"
         action="event_administrative_list_action" />
 
-    <menuitem id="myreport_menu" name="My reports" parent="main_myagenda_menu"  groups="myagenda.group_teacher,myagenda.group_administrator,myagenda.group_administrative" />
+    <menuitem id="myreport_menu" name="My reports" parent="main_myagenda_menu"
+        groups="myagenda.group_teacher,myagenda.group_administrator,myagenda.group_administrative" />
 
 
 

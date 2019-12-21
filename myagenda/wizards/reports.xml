@@ -21,32 +21,9 @@
         </field>
     </record>
 
-    <record model="ir.ui.view" id="attendees_event_report_wizard">
-        <field name="name">Attendees Event Report</field>
-        <field name="model">myagenda.attendees_event.report.wizard</field>
-        <field name="type">form</field>
-        <field name="arch" type="xml">
-            <form string="Attendees event Report">
-                <group>
-                    <field name="events_ids" options="{'no_quick_create':True,'no_create_edit':True}" 
-                    widget="selection"
-                     />
-                </group>
-                <footer>
-                    <button name="get_report" string="Get Report" type="object" class="oe_highlight" />
-                    <button string="Cancel" special="cancel" />
-                </footer>
-            </form>
-        </field>
-    </record>
-
-    <act_window id="action_agenda_event_report_wizard" name="Event Report" res_model="myagenda.event.report.wizard"
-        view_mode="form" target="new" />
-
-     <act_window id="action_attendees_event_report_wizard" name="Attendees event Report" res_model="myagenda.attendees_event.report.wizard"
+    <act_window id="action_agenda_event_report_wizard" name="All Events Report" res_model="myagenda.event.report.wizard"
         view_mode="form" target="new" />
 
     <menuitem action="action_agenda_event_report_wizard" id="menu_agenda_report_wizard" parent="myreport_menu" />
-    <menuitem action="action_attendees_event_report_wizard" id="menu_attendees_report_wizard" parent="myreport_menu" />
 
 </odoo>

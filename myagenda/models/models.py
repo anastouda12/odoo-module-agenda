@@ -46,10 +46,10 @@ class Agenda(models.Model):
 
     color = fields.Integer()
 
-    type_agenda = fields.Selection(string='Type', selection=[],
-                                   required=True,
-                                   readonly=True
-                                   )
+    type_agenda = fields.Char(
+        string='Agenda default',
+        readonly=True
+    )
 
     @api.depends('events_ids')
     def _compute_event(self):
@@ -87,24 +87,46 @@ class Agenda(models.Model):
 
 
 class AgendaStudent(models.Model):
+    _name = 'myagenda.agenda.student'
     _inherit = 'myagenda.agenda'
 
-    type_agenda = fields.Selection(
-        selection_add=[('Agenda student', 'Agenda student')])
+    type_agenda = fields.Char(
+        string='Agenda student',
+        readonly=True
+
+    )
+    events_ids = fields.One2many(
+        'myagenda.event.student', 'agenda_id', string='Events', ondelete='cascade',
+        store=True
+    )
 
 
 class AgendaPedagogic(models.Model):
+    _name = 'myagenda.agenda.pedagogic'
     _inherit = 'myagenda.agenda'
 
-    type_agenda = fields.Selection(
-        selection_add=[('Agenda pedagogic', 'Agenda pedagogic')])
+    type_agenda = fields.Char(
+        string='Agenda pedagogic',
+        readonly=True
+    )
+    events_ids = fields.One2many(
+        'myagenda.event.pedagogic', 'agenda_id', string='Events', ondelete='cascade',
+        store=True
+    )
 
 
 class AgendaAdministrative(models.Model):
+    _name = 'myagenda.agenda.administrative'
     _inherit = 'myagenda.agenda'
 
-    type_agenda = fields.Selection(
-        selection_add=[('Agenda administrative', 'Agenda administrative')])
+    type_agenda = fields.Char(
+        string='Agenda administrative',
+        readonly=True
+    )
+    events_ids = fields.One2many(
+        'myagenda.event.administrative', 'agenda_id', string='Events', ondelete='cascade',
+        store=True
+    )
 
 
 class Event(models.Model):
@@ -130,8 +152,8 @@ class Event(models.Model):
         required=False
     )
 
-    type_agenda = fields.Selection(
-        [('Agenda administrative', 'Agenda administrative'), ('Agenda pedagogic', 'Agenda pedagogic'), ('Agenda student', 'Agenda student')], readonly=True, store=True)
+    type_agenda = fields.Char(string="Agenda default",
+                              readonly=True, store=True)
 
     start_date = fields.Datetime(
         string='Date',
@@ -235,3 +257,42 @@ class Event(models.Model):
          'UNIQUE(name)',
          "The event title must be unique"),
     ]
+
+
+class eventStudent(models.Model):
+    _name = 'myagenda.event.student'
+
+    _inherit = 'myagenda.event'
+    type_agenda = fields.Char(string="Agenda student",
+                              readonly=True, store=True)
+    agenda_id = fields.Many2one(
+        'myagenda.agenda.student', String='Agenda', ondelete='cascade',
+        required=True,
+        store=True,
+    )
+
+
+class eventPedagogic(models.Model):
+    _name = 'myagenda.event.pedagogic'
+
+    _inherit = 'myagenda.event'
+    type_agenda = fields.Char(
+        string="Agenda pedagogic", readonly=True, store=True)
+    agenda_id = fields.Many2one(
+        'myagenda.agenda.pedagogic', String='Agenda', ondelete='cascade',
+        required=True,
+        store=True,
+    )
+
+
+class eventAdministrative(models.Model):
+    _name = 'myagenda.event.administrative'
+
+    _inherit = 'myagenda.event'
+    type_agenda = fields.Char(
+        string="Agenda administrative", readonly=True, store=True)
+    agenda_id = fields.Many2one(
+        'myagenda.agenda.administrative', String='Agenda', ondelete='cascade',
+        required=True,
+        store=True,
+    )
