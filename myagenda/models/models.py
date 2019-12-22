@@ -258,6 +258,13 @@ class Event(models.Model):
                 raise exceptions.ValidationError(
                     _("Attendee not registered in the corresponding agenda"))
 
+    @api.constrains('organizer_id')
+    def _verify_valid_organizer(self):
+        for r in self:
+            if r.organizer_id and r.organizer_id not in r.agenda_id.attendees_ids:
+                raise exceptions.ValidationError(
+                    _("Organizer not registered in the corresponding agenda"))
+
     _sql_constraints = [
         ('name_description_check',
          'CHECK(name != description)',
@@ -279,6 +286,12 @@ class eventStudent(models.Model):
         'myagenda.agenda.student', String='Agenda', ondelete='cascade',
         required=True,
         store=True,
+    )
+    organizer_id = fields.Many2one(
+        'res.partner', String='Organizer', ondelete='cascade', domain=[('role', '=', "attendee")], default=lambda self: self.env.user.partner_id,
+        required=True,
+        readonly=True,
+        store=True
     )
 
 

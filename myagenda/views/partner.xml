@@ -26,6 +26,15 @@
         </field>
     </record>
 
+<!-- auto increment IDNumber-->
+    <record id="increment_idnumber" model="ir.sequence">
+        <field name="name">IDnumber Incrementation</field>
+        <field name="code">increment_idnumber</field>
+        <field name="prefix"></field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False" />
+    </record>
+
     <record model="ir.actions.act_window" id="staff_list_action">
         <field name="name">Staff</field>
         <field name="res_model">res.partner</field>
@@ -39,9 +48,9 @@
         <field name="res_model">res.partner</field>
         <field name="view_mode">tree,form</field>
         <field name="domain">[('role','=','attendee')]</field>
-        <field name="context">{'default_role':'attendee'}</field>  
+        <field name="context">{'default_role':'attendee'}</field>
     </record>
-    
+
     <menuitem id="configuration_menu" name="Members" parent="main_myagenda_menu"
         groups="myagenda.group_administrator" />
     <menuitem id="staff_menu" name="Staff" parent="configuration_menu" action="staff_list_action" />

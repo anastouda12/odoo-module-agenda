@@ -5,10 +5,12 @@ class Partner(models.Model):
     _inherit = 'res.partner'
 
     role = fields.Selection(string='Role', selection=[(
-        'staff', 'staff'), ('attendee', 'attendee')])
+        'staff', 'staff'), ('attendee', 'attendee')],
+        default='attendee'
+    )
 
     idnumber = fields.Char(string='ID',
-                           required=True
+                           required=True, default=lambda self: self.env['ir.sequence'].next_by_code('increment_idnumber')
                            )
     events_ids = fields.Many2many('myagenda.event',
                                   string="Events", readonly=True)
