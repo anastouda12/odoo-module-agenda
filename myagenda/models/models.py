@@ -6,8 +6,12 @@ import base64
 
 
 def get_default_img(cat):
-    if cat == "agenda":
-        img = 'icon-agenda.jpg'
+    if cat == "agenda_student":
+        img = 'icon-agenda_student.jpg'
+    elif cat == "agenda_pedagogic":
+        img = 'icon-agenda_pedagogic.jpg'
+    elif cat == "agenda_administrative":
+        img = 'icon-agenda_administrative.jpg'
     else:
         img = 'icon-event.png'
     with open(modules.get_module_resource('myagenda', 'static/img', img),
@@ -42,7 +46,7 @@ class Agenda(models.Model):
                                      )
 
     image = fields.Binary("Image", attachment=True,
-                          default=get_default_img("agenda"))
+                          default=get_default_img("agenda_student"))
 
     color = fields.Integer()
 
@@ -100,6 +104,8 @@ class AgendaStudent(models.Model):
         'myagenda.event.student', 'agenda_id', string='Events', ondelete='cascade',
         store=True
     )
+    image = fields.Binary("Image", attachment=True,
+                          default=get_default_img("agenda_student"))
 
 
 class AgendaPedagogic(models.Model):
@@ -115,6 +121,8 @@ class AgendaPedagogic(models.Model):
         'myagenda.event.pedagogic', 'agenda_id', string='Events', ondelete='cascade',
         store=True
     )
+    image = fields.Binary("Image", attachment=True,
+                          default=get_default_img("agenda_pedagogic"))
 
 
 class AgendaAdministrative(models.Model):
@@ -130,6 +138,8 @@ class AgendaAdministrative(models.Model):
         'myagenda.event.administrative', 'agenda_id', string='Events', ondelete='cascade',
         store=True
     )
+    image = fields.Binary("Image", attachment=True,
+                          default=get_default_img("agenda_administrative"))
 
 
 class Event(models.Model):

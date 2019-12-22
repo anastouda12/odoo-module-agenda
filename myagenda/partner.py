@@ -20,8 +20,8 @@ class Partner(models.Model):
         readonly=True
     )
 
-    _sql_constraints = [
-        ('idnumber_unique',
-         'UNIQUE(idnumber)',
-         "The ID-number must be unique"),
-    ]
+    #_sql_constraints = [
+    #    ('idnumber_unique',
+    #
+    #     "The ID-number must be unique"),
+    #]
