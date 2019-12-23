@@ -168,6 +168,11 @@ class Event(models.Model):
     type_agenda = fields.Char(string="Agenda default",
                               readonly=True, store=True)
 
+    attachement = fields.Many2many(
+        'ir.attachment',
+        string='Attachment'
+    )
+
     start_date = fields.Datetime(
         string='Date',
         required=True

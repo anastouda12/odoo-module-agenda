@@ -87,7 +87,7 @@
                     <!--To have under a tab-->
                     <notebook>
                         <page string="Events">
-                            <field name="events_ids"  context="{'default_agenda_id' : id}">
+                            <field name="events_ids" context="{'default_agenda_id' : id}">
                                 <tree string="Event's agenda" editable="bottom">
                                     <field name="name" />
                                     <field name="agenda_id" widget="selection" invisible="1" />
@@ -272,6 +272,8 @@
         <field name="res_model">myagenda.event.student</field>
         <field name="view_type">form</field>
         <field name="view_mode">calendar,tree,form,kanban,graph</field>
+        <field name="search_view_id" ref="event_search_view" />
+        <field name="context">{'form_view_ref': 'myagenda.event_form_view'}</field>
         <field name="help" type="html">
             <p class="oe_view_nocontent_create">Create the first Event
             </p>
@@ -284,7 +286,8 @@
         <field name="res_model">myagenda.event.pedagogic</field>
         <field name="view_type">form</field>
         <field name="view_mode">calendar,tree,form,kanban,graph</field>
-
+        <field name="search_view_id" ref="event_search_view" />
+        <field name="context">{'form_view_ref': 'myagenda.event_form_view'}</field>
         <field name="help" type="html">
             <p class="oe_view_nocontent_create">Create the first Event
             </p>
@@ -297,6 +300,8 @@
         <field name="res_model">myagenda.event.administrative</field>
         <field name="view_type">form</field>
         <field name="view_mode">calendar,tree,form,kanban,graph</field>
+        <field name="search_view_id" ref="event_search_view" />
+        <field name="context">{'form_view_ref': 'myagenda.event_form_view'}</field>
         <field name="help" type="html">
             <p class="oe_view_nocontent_create">Create the first Event
             </p>
@@ -318,6 +323,25 @@
                 <field name="location" />
                 <field name="taken_registration" widget="progressbar" />
             </tree>
+        </field>
+    </record>
+
+    <!-- Searche of event-->
+    <record model="ir.ui.view" id="event_search_view">
+        <field name="name">event.search</field>
+        <field name="model">myagenda.event</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" />
+                <!-- Button to group event by organizer-->
+                <group string="Group By">
+                    <filter name="by_organizer" string="Organizer" context="{'group_by': 'organizer_id'}" />
+                    <filter name="by_agenda" string="Agenda" context="{'group_by': 'agenda_id'}" />
+                    <filter name="by_type" string="Type" context="{'group_by': 'typeEvent'}" />
+                    <filter name="by_location" string="Location" context="{'group_by': 'location'}" />
+                    <filter name="by_periodicity" string="Periodicity" context="{'group_by': 'periodicity'}" />
+                </group>
+            </search>
         </field>
     </record>
 
@@ -349,13 +373,15 @@
                             <hr colspan="6" style="border-top: 1px solid #e0dcdc" class="oe_read_only" />
                             <field name="description" nolabel="1" widget="html" />
                             <hr colspan="6" style="border-top: 1px solid #e0dcdc" class="oe_read_only" />
-
+                        </group>
+                        <group string="Files">
+                            <field name="attachement" nolabel="1" widget="many2many_binary" />
                         </group>
                         <group colspan="4" style="text-align:center;" class="oe_read_only">
                             <field name="taken_registration" nolabel="1" widget="gauge"
                                 style="width:150px;height:120px;cursor:pointer;" />
                         </group>
-                        <group class="oe_edit_only" colspan="2">
+                        <group class="oe_edit_only" colspan="2" string="Stats">
                             <field name="attendees_count" />
                             <field name="max_registration" />
                         </group>
@@ -380,6 +406,7 @@
     <record model="ir.ui.view" id="view_event_kanban">
         <field name="name">myagenda.event.kanban</field>
         <field name="model">myagenda.event</field>
+        <field eval="3" name="sequence" />
         <field name="arch" type="xml">
             <kanban default_group_by="agenda_id">
                 <field name="color" />
@@ -442,9 +469,10 @@
         <field name="name">myagenda.event.calendar</field>
         <field name="model">myagenda.event</field>
         <field name="arch" type="xml">
-            <calendar string="Agenda event" date_delay="duration" date_start="start_date" mode="month"
-                color="agenda_id">
+            <calendar string="Agenda event" date_delay="duration" date_start="start_date" mode="month" color="agenda_id"
+                quick_add="False" event_open_popup="1">
                 <field name="name" />
+                <field name="typeEvent" />
                 <field name="location" />
                 <field name="periodicity" />
             </calendar>
@@ -540,13 +568,7 @@
         <field name="view_id" ref="event_calendar_view" />
         <field name="act_window_id" ref="event_administrative_list_action" />
     </record>
-    
-    <record id="event_administrative_calendar_view" model="ir.actions.act_window.view">
-        <field eval="2" name="sequence" />
-        <field name="view_mode">calendar</field>
-        <field name="view_id" ref="event_calendar_view" />
-        <field name="act_window_id" ref="event_administrative_list_action" />
-    </record>
+
     <record id="event_administrative_tree_view" model="ir.actions.act_window.view">
         <field eval="2" name="sequence" />
         <field name="view_mode">tree</field>
@@ -582,18 +604,11 @@
     <!-- =============================== Fin: Event ============================== -->
 
 
-
-
     <!-- =============================== Menu ============================== -->
 
     <!-- top level menu: no parent -->
     <menuitem id="main_myagenda_menu" name="My Agenda" />
-    <!-- A first level in the left side menu is needed
-             before using action= attribute -->
     <menuitem id="myagenda_menu" name="My Agenda" parent="main_myagenda_menu" />
-    <!-- Full id location:
-             action="mylibrary.course_list_action"
-             It is not required when it is the same module -->
 
     <!-- On lie le menu agenda au menu principal -->
     <menuitem id="agenda_student_menu" name="Agenda student" parent="myagenda_menu"
