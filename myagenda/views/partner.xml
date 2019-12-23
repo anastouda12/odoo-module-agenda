@@ -10,7 +10,7 @@
             <notebook position="inside">
                 <page string="Agenda event">
                     <group>
-                        <field name="role" readonly="1" widget="radio" />
+                        <field name="role" widget="radio" />
                         <field name="idnumber" />
                     </group>
                     <notebook position="inside">
