@@ -2,6 +2,8 @@
 
 from odoo import models, fields, api, exceptions, _
 from odoo import modules
+from datetime import date, datetime
+from dateutil.relativedelta import relativedelta
 import base64
 
 
@@ -178,6 +180,8 @@ class Event(models.Model):
         required=True
     )
 
+    end_date = fields.Datetime(string="End date")
+
     duration = fields.Float(
         help="Duration of the event")
 
@@ -266,6 +270,36 @@ class Event(models.Model):
             if r.organizer_id and r.organizer_id not in r.agenda_id.attendees_ids:
                 raise exceptions.ValidationError(
                     _("Organizer not registered in the corresponding agenda"))
+
+    @api.constrains('end_date', 'periodicity')
+    def _check_good_state(self):
+        for r in self:
+            if r.end_date and not r.periodicity or not r.end_date and r.periodicity:
+                raise exceptions.ValidationError(
+                    _("End date and periodicity work together"))
+
+    @api.model
+    def create(self, vals):
+        new_record = super(Event, self).create(vals)
+        if vals['periodicity']:
+            DATETIME_FORMAT = "%Y-%m-%d %H:%M:%S"
+            date = datetime.strptime(vals['start_date'], DATETIME_FORMAT)
+            end_date = datetime.strptime(vals['end_date'], DATETIME_FORMAT)
+            vals['start_date'] = date
+            vals['end_date'] = end_date
+            if vals['periodicity'] == 'Weekly':
+                while vals['start_date'] < vals['end_date']:
+                    vals['start_date'] += relativedelta(days=+7)
+                    record2 = super(Event, self).create(vals)
+            if vals['periodicity'] == 'Monthly':
+                while vals['start_date'] < vals['end_date']:
+                    vals['start_date'] += relativedelta(months=+1)
+                    record2 = super(Event, self).create(vals)
+            if vals['periodicity'] == 'Daily':
+                while vals['start_date'] < vals['end_date']:
+                    vals['start_date'] += relativedelta(days=+1)
+                    record2 = super(Event, self).create(vals)
+        return new_record
 
     _sql_constraints = [
         ('name_description_check',

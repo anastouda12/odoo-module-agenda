@@ -267,7 +267,7 @@
 
     <!-- =============================== Event ============================== -->
     <record model="ir.ui.view" id="event_tree_view">
-        <field name="name">agenda.tree</field>
+        <field name="name">event.tree</field>
         <field name="model">myagenda.event</field>
         <field name="arch" type="xml">
             <tree string="event Tree" decoration-danger="taken_registration == 100"
@@ -292,6 +292,7 @@
                 <field name="name" />
                 <!-- Button to group event by organizer-->
                 <group string="Group By">
+                    <filter name="by_event" string="Event" context="{'group_by': 'name'}" />
                     <filter name="by_organizer" string="Organizer" context="{'group_by': 'organizer_id'}" />
                     <filter name="by_agenda" string="Agenda" context="{'group_by': 'agenda_id'}" />
                     <filter name="by_type" string="Type" context="{'group_by': 'typeEvent'}" />
@@ -322,6 +323,7 @@
                         </group>
                         <group string="Schedule">
                             <field name="start_date" />
+                            <field name="end_date" />
                             <field name="duration" widget="float_time" />
                             <field name="location" />
                             <field name="periodicity" />
@@ -437,9 +439,9 @@
     </record>
 
 
-    
 
-        <!-- Menu principal a gauche  on a Event en point d'entrée-->
+
+    <!-- Menu principal a gauche  on a Event en point d'entrée-->
     <record model="ir.actions.act_window" id="event_student_list_action">
         <field name="name">Events student</field>
         <field name="res_model">myagenda.event.student</field>
