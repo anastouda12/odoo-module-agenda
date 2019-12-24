@@ -252,26 +252,13 @@ class Event(models.Model):
                 raise exceptions.ValidationError(
                     _("A event's organizer can't be an attendee"))
 
-    @api.multi
-    def copy(self, default=None):
-        default = dict(default or {})
-
-        copied_count = self.search_count(
-            [('name', '=like', _(u"Copy of {}%").format(self.name))])
-        if not copied_count:
-            new_name = _(u"Copy of {}").format(self.name)
-        else:
-            new_name = _(u"Copy of {} ({})").format(self.name, copied_count)
-
-        default['name'] = new_name
-        return super(Event, self).copy(default)
-
-    @api.constrains('attendees_ids')
+    @api.onchange('attendees_ids')
     def _verify_valid_attendees(self):
-        for r in self:
-            if r.attendees_ids and r.attendees_ids not in r.agenda_id.attendees_ids:
-                raise exceptions.ValidationError(
-                    _("Attendee not registered in the corresponding agenda"))
+        for record in self:
+            for r in record.attendees_ids:
+                if r and r not in record.agenda_id.attendees_ids:
+                    raise exceptions.ValidationError(
+                        _("Attendee not registered in the corresponding agenda"))
 
     @api.constrains('organizer_id')
     def _verify_valid_organizer(self):
@@ -284,10 +271,6 @@ class Event(models.Model):
         ('name_description_check',
          'CHECK(name != description)',
          "The title of the event should not be the description"),
-
-        ('name_unique',
-         'UNIQUE(name)',
-         "The event title must be unique"),
     ]
 
 

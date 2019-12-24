@@ -53,7 +53,7 @@ class ReportAgendaEvent(models.AbstractModel):
                     'name': event.name,
                     'type': event.typeEvent,
                     'start_date': event.start_date,
-                    'organizer': event.organizer_id.idnumber,
+                    'organizer': event.organizer_id.name,
                     'agenda': event.agenda_id.name,
                     'location': event.location,
 
@@ -71,7 +71,7 @@ class ReportAgendaEvent(models.AbstractModel):
                     'name': event.name,
                     'type': event.typeEvent,
                     'start_date': event.start_date,
-                    'organizer': event.organizer_id.idnumber,
+                    'organizer': event.organizer_id.name,
                     'agenda': event.agenda_id.name,
                     'location': event.location,
 
@@ -89,7 +89,7 @@ class ReportAgendaEvent(models.AbstractModel):
                     'name': event.name,
                     'type': event.typeEvent,
                     'start_date': event.start_date,
-                    'organizer': event.organizer_id.idnumber,
+                    'organizer': event.organizer_id.name,
                     'agenda': event.agenda_id.name,
                     'location': event.location,
 

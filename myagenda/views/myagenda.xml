@@ -104,7 +104,7 @@
                             <field name="attendees_ids">
                                 <tree string="Attendees of agenda">
                                     <field name="name" />
-                                    <field name="idnumber" />
+                                    <field name="role" />
                                 </tree>
                             </field>
                         </page>
@@ -266,49 +266,6 @@
     <!-- =============================== FIN : Agenda ========================= -->
 
     <!-- =============================== Event ============================== -->
-    <!-- Menu principal a gauche  on a Event en point d'entrée-->
-    <record model="ir.actions.act_window" id="event_student_list_action">
-        <field name="name">Events student</field>
-        <field name="res_model">myagenda.event.student</field>
-        <field name="view_type">form</field>
-        <field name="view_mode">calendar,tree,form,kanban,graph</field>
-        <field name="search_view_id" ref="event_search_view" />
-        <field name="context">{'form_view_ref': 'myagenda.event_form_view'}</field>
-        <field name="help" type="html">
-            <p class="oe_view_nocontent_create">Create the first Event
-            </p>
-        </field>
-    </record>
-
-    <!-- Menu principal a gauche  on a Event en point d'entrée-->
-    <record model="ir.actions.act_window" id="event_pedagogic_list_action">
-        <field name="name">Events pedagogic</field>
-        <field name="res_model">myagenda.event.pedagogic</field>
-        <field name="view_type">form</field>
-        <field name="view_mode">calendar,tree,form,kanban,graph</field>
-        <field name="search_view_id" ref="event_search_view" />
-        <field name="context">{'form_view_ref': 'myagenda.event_form_view'}</field>
-        <field name="help" type="html">
-            <p class="oe_view_nocontent_create">Create the first Event
-            </p>
-        </field>
-    </record>
-
-    <!-- Menu principal a gauche  on a Event en point d'entrée-->
-    <record model="ir.actions.act_window" id="event_administrative_list_action">
-        <field name="name">Events administrative</field>
-        <field name="res_model">myagenda.event.administrative</field>
-        <field name="view_type">form</field>
-        <field name="view_mode">calendar,tree,form,kanban,graph</field>
-        <field name="search_view_id" ref="event_search_view" />
-        <field name="context">{'form_view_ref': 'myagenda.event_form_view'}</field>
-        <field name="help" type="html">
-            <p class="oe_view_nocontent_create">Create the first Event
-            </p>
-        </field>
-    </record>
-
-
     <record model="ir.ui.view" id="event_tree_view">
         <field name="name">agenda.tree</field>
         <field name="model">myagenda.event</field>
@@ -326,7 +283,7 @@
         </field>
     </record>
 
-    <!-- Searche of event-->
+    <!-- Search of event-->
     <record model="ir.ui.view" id="event_search_view">
         <field name="name">event.search</field>
         <field name="model">myagenda.event</field>
@@ -392,7 +349,7 @@
                             ('max_registration', '=', 0 )]}">
                                 <tree string="Attendees of agenda">
                                     <field name="name" />
-                                    <field name="idnumber" />
+                                    <field name="role" />
                                 </tree>
                             </field>
                         </page>
@@ -476,6 +433,51 @@
                 <field name="location" />
                 <field name="periodicity" />
             </calendar>
+        </field>
+    </record>
+
+
+    
+
+        <!-- Menu principal a gauche  on a Event en point d'entrée-->
+    <record model="ir.actions.act_window" id="event_student_list_action">
+        <field name="name">Events student</field>
+        <field name="res_model">myagenda.event.student</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">calendar,tree,form,kanban,graph</field>
+        <field name="search_view_id" ref="event_search_view" />
+        <field name="context">{'form_view_ref': 'myagenda.event_form_view'}</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">Create the first Event
+            </p>
+        </field>
+    </record>
+
+    <!-- Menu principal a gauche  on a Event en point d'entrée-->
+    <record model="ir.actions.act_window" id="event_pedagogic_list_action">
+        <field name="name">Events pedagogic</field>
+        <field name="res_model">myagenda.event.pedagogic</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">calendar,tree,form,kanban,graph</field>
+        <field name="search_view_id" ref="event_search_view" />
+        <field name="context">{'form_view_ref': 'myagenda.event_form_view'}</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">Create the first Event
+            </p>
+        </field>
+    </record>
+
+    <!-- Menu principal a gauche  on a Event en point d'entrée-->
+    <record model="ir.actions.act_window" id="event_administrative_list_action">
+        <field name="name">Events administrative</field>
+        <field name="res_model">myagenda.event.administrative</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">calendar,tree,form,kanban,graph</field>
+        <field name="search_view_id" ref="event_search_view" />
+        <field name="context">{'form_view_ref': 'myagenda.event_form_view'}</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">Create the first Event
+            </p>
         </field>
     </record>
 

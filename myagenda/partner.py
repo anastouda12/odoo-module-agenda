@@ -9,9 +9,6 @@ class Partner(models.Model):
         default='attendee'
     )
 
-    idnumber = fields.Char(string='ID',
-                           required=True, default=lambda self: self.env['ir.sequence'].next_by_code('increment_idnumber')
-                           )
     events_ids = fields.Many2many('myagenda.event',
                                   string="Events", readonly=True)
     agenda_ids = fields.Many2many(
@@ -19,9 +16,3 @@ class Partner(models.Model):
         string='Agenda',
         readonly=True
     )
-
-    #_sql_constraints = [
-    #    ('idnumber_unique',
-    #
-    #     "The ID-number must be unique"),
-    #]
