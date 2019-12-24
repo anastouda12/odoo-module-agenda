@@ -172,7 +172,7 @@ class Event(models.Model):
 
     attachement = fields.Many2many(
         'ir.attachment',
-        string='Attachment'
+        string='Attachment', help="Attachement of the event. \n You can add here some files relative of the event"
     )
 
     start_date = fields.Datetime(
@@ -180,10 +180,11 @@ class Event(models.Model):
         required=True
     )
 
-    end_date = fields.Datetime(string="End date")
+    end_date = fields.Datetime(
+        string="End date", help="Reference the end date of the periodicity \n Field required when periodicity is set")
 
     duration = fields.Float(
-        help="Duration of the event")
+        help="Duration in time HH:MM of the event")
 
     location = fields.Char(
         string='Location',
@@ -193,6 +194,7 @@ class Event(models.Model):
 
     periodicity = fields.Selection(string='Periodicity', selection=[(
         'Daily', 'Daily'), ('Weekly', 'Weekly'), ('Monthly', 'Monthly')],
+        help="Reference the reccuring of the event in the calendar \n Field required when end date is set",
         required=False
     )
 
@@ -272,11 +274,18 @@ class Event(models.Model):
                     _("Organizer not registered in the corresponding agenda"))
 
     @api.constrains('end_date', 'periodicity')
-    def _check_good_state(self):
+    def _check_good_state_periodicity_enddate(self):
         for r in self:
             if r.end_date and not r.periodicity or not r.end_date and r.periodicity:
                 raise exceptions.ValidationError(
                     _("End date and periodicity work together"))
+
+    @api.constrains('start_date', 'end_date')
+    def _check_good_state_dates(self):
+        for r in self:
+            if r.start_date and r.end_date and r.start_date >= r.end_date:
+                raise exceptions.ValidationError(
+                    _("The start date must be less than the end date \n If you want the event takes place in only 1 day then don't give value to end date field or periodicity"))
 
     @api.model
     def create(self, vals):

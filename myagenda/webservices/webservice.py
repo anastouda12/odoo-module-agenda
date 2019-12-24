@@ -3,7 +3,7 @@ import functools
 import xmlrpc.client
 HOST = 'localhost'
 PORT = 8069
-DB = 'agenda06'
+DB = 'agenda06'  # Here the name of the DB
 USER = 'admin'
 PASS = 'admin'
 ROOT = 'http://%s:%d/xmlrpc/' % (HOST, PORT)
