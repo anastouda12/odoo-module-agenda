@@ -114,15 +114,15 @@
             <field name="role">staff</field>
         </record>
 
-        <record id="bulbizard_partner" model="res.partner">
-            <field name="name">Bulbizard</field>
+        <record id="bulbizar_partner" model="res.partner">
+            <field name="name">bulbizar</field>
             <field name="supplier">0</field>
             <field name="is_company">0</field>
             <field name="city">Bruxelles</field>
             <field name="zip">1000</field>
             <field name="country_id" ref="base.be" />
             <field name="street">Rue royal 67</field>
-            <field name="email">Bulbizard</field>
+            <field name="email">bulbizar</field>
             <field name="website">http://www.heb.be/esi</field>
             <field name="role">staff</field>
         </record>
@@ -144,28 +144,32 @@
             <field name="partner_id" ref="salameche_partner" />
             <field name="login">salameche</field>
             <field name="password">123</field>
-            <field name="groups_id" eval="[(4, ref('myagenda.group_administrator'))]" />
+            <field name="groups_id" eval="[(6,0,[ref('base.group_user'), ref('myagenda.group_administrator')])]"/>
+            <field name="image" type="base64" file="myagenda/static/img/user_salameche-image.jpg"/>
         </record>
 
         <record id="pikachu_user" model="res.users">
             <field name="partner_id" ref="pikachu_partner" />
             <field name="login">pikachu</field>
             <field name="password">123</field>
-            <field name="groups_id" eval="[(4, ref('myagenda.group_teacher'))]" />
+            <field name="groups_id" eval="[(6,0,[ref('base.group_user'), ref('myagenda.group_teacher')])]"/>
+            <field name="image" type="base64" file="myagenda/static/img/user_pikachu-image.png"/>
         </record>
 
-        <record id="bulbizard_user" model="res.users">
-            <field name="partner_id" ref="bulbizard_partner" />
-            <field name="login">bulbizard</field>
+        <record id="bulbizar_user" model="res.users">
+            <field name="partner_id" ref="bulbizar_partner" />
+            <field name="login">bulbizar</field>
             <field name="password">123</field>
-            <field name="groups_id" eval="[(4, ref('myagenda.group_administrative'))]" />
+            <field name="groups_id" eval="[(6,0,[ref('base.group_user'), ref('myagenda.group_administrative')])]"/>
+            <field name="image" type="base64" file="myagenda/static/img/user_bulbizar-image.png"/>
         </record>
 
         <record id="dracaufeu_user" model="res.users">
             <field name="partner_id" ref="dracaufeu_partner" />
             <field name="login">dracaufeu</field>
             <field name="password">123</field>
-            <field name="groups_id" eval="[(4, ref('myagenda.group_student'))]" />
+            <field name="groups_id" eval="[(6,0,[ref('base.group_user'), ref('myagenda.group_student')])]"/>
+            <field name="image" type="base64" file="myagenda/static/img/user_dracaufeu-image.png"/>
         </record>
 
     </data>
