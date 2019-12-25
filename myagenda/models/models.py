@@ -173,7 +173,7 @@ class Event(models.Model):
     type_agenda = fields.Char(string="Agenda default",
                               readonly=True, store=True)
 
-    attachement = fields.Many2many(
+    attachment = fields.Many2many(
         'ir.attachment',
         string='Attachment', help="Attachement of the event. \n You can add here some files relative of the event"
     )
@@ -184,7 +184,7 @@ class Event(models.Model):
     )
 
     end_date = fields.Datetime(
-        string="End date", help="Reference the end date of the periodicity \n Field required when periodicity is set")
+        string="End date", placeholder="End date of the periodicity", help="Reference the end date of the periodicity \n Field required when periodicity is set")
 
     duration = fields.Float(
         help="Duration in time HH:MM of the event")
@@ -198,7 +198,7 @@ class Event(models.Model):
     periodicity = fields.Selection(string='Periodicity', selection=[(
         'Daily', 'Daily'), ('Weekly', 'Weekly'), ('Monthly', 'Monthly')],
         help="Reference the reccuring of the event in the calendar \n Field required when end date is set",
-        required=False
+        required=False, placeholder="Reccuring in time"
     )
 
     max_registration = fields.Integer(
@@ -254,6 +254,12 @@ class Event(models.Model):
             raise exceptions.ValidationError(
                 _("Too many attendees. Increase max of registration or remove excess attendees"))
 
+    @api.constrains('max_registration', 'attendees_ids')
+    def _verify_valid_register_state(self):
+        if self.max_registration < len(self.attendees_ids):
+            raise exceptions.ValidationError(
+                _("Incorrect 'max registration' value. The number of available registration may not be less than attendees"))
+
     @api.onchange('max_registration', 'attendees_ids')
     def _check_organizer_not_in_attendees(self):
         for r in self:
@@ -286,14 +292,17 @@ class Event(models.Model):
     @api.constrains('start_date', 'end_date')
     def _check_good_state_dates(self):
         for r in self:
-            if r.start_date and r.end_date and r.start_date >= r.end_date:
+            if r.start_date and r.end_date and r.start_date > r.end_date:
                 raise exceptions.ValidationError(
                     _("The start date must be less than the end date \n If you want the event takes place in only 1 day then don't give value to end date field or periodicity"))
 
     @api.model
     def create(self, vals):
         new_record = super(Event, self).create(vals)
-        if vals['periodicity']:
+        # Need to check if the variable exist in vals first else we have key error
+        if not vals.get('periodicity', False):
+            return new_record
+        elif vals['periodicity']:
             date = datetime.strptime(vals['start_date'], DATETIME_FORMAT)
             end_date = datetime.strptime(vals['end_date'], DATETIME_FORMAT)
             vals['start_date'] = date

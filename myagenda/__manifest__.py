@@ -7,8 +7,8 @@
         """,
 
     'description': """
-        Agenda ESI allows you to
-        manage events in the agenda.
+        Allows you to
+        manage events in different category of agenda like pedagogic, administrative and student.
         These events include courses taken, questions, project submissions, meetings and other activities organized
         """,
 

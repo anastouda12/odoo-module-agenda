@@ -145,6 +145,7 @@
                     </div>
                 </div>
             </field>
+            <field name="attendees_ids" eval="[(6, 0, [ref('pikachu_partner'),ref('salameche_partner')])]" />
         </record>
 
 
@@ -171,6 +172,7 @@
                     </div>
                 </div>
             </field>
+            <field name="attendees_ids" eval="[(6, 0, [ref('bulbizar_partner')])]" />
         </record>
         <!--                            END: AGENDA CREATION                               -->
 
@@ -186,32 +188,164 @@
             <field name="location">Local 003</field>
             <field name="periodicity">Monthly</field>
             <field name="end_date" eval="datetime(2020,12,13,12,30,00).strftime('%Y-%m-%d %H:%M:%S')" />
+            <field name="max_registration">20</field>
             <field name="description" type="html">
-                <p style="text-align:center;"><img height="120px" width="120px"
-                        src="/myagenda/static/img/student_concil.png" alt="Logo" /></p>
+                <p style="text-align:center;"><img height="140px" width="140px"
+                        src="/myagenda/static/img/reunion_img.png" alt="Logo" /></p>
                 <div class="row">
                     <div class="col-md-5 col-md-offset-1 mt64">
-                        <h3 style="color:#3bccb9;">Nos objectifs</h3>
+                        <h3 style="color:#3bccb9;">Meeting du conseil étudiant</h3>
                         <p>
-                            Un conseil étudiant peut jouer plusieurs rôles dans une école.<br />
-                            Celui-ci organise des activités pour les étudiants,
-                            représente l'opinion des étudiants auprès de la direction de l'école ect...
+                            Réunion du conseil étudiant qui permet à chacun de s'exprimer,appelle le vote et
+                            s'assure que les décisions prises soient appliquées pour tous les étudiants de l'école.
                         </p>
                     </div>
-
                     <div class="col-md-5 col-md-offset-1 mt64">
-                        <h3 style="color:#3bccb9;">Activités organisées</h3>
+                        <h3 style="color:#3bccb9;">Réunion mensuelle</h3>
                         <p>
-                            Nous organisons des activités scolaires et parascolaires
-                            pour tous les étudiants de l'école.<br />
-                            Pour être au courant des activités tout au long de l'année (Réunion,déjeuner d’école, sortie
-                            hors de l'école...) inscrit toi à notre Agenda !
+                            La réunion se tient 1 fois par mois, au sein de l'école, durant l'année entre le temps du
+                            midi.
                         </p>
                     </div>
                 </div>
             </field>
         </record>
 
+        <record model="myagenda.event.pedagogic" id="event_pedagogic1">
+            <field name="name">Interrogation Django</field>
+            <field name="agenda_id" ref="myagenda.agenda_pedagogic1" />
+            <field name="organizer_id" ref="myagenda.pikachu_partner" />
+            <field name="typeEvent">Interrogation</field>
+            <field name="start_date" eval="datetime(2020,1,29,16,00,00).strftime('%Y-%m-%d %H:%M:%S')" />
+            <field name="duration">2.00</field>
+            <field name="location">Local 401</field>
+            <field name="max_registration">20</field>
+            <field name="description" type="html">
+                <p style="text-align:center;"><img height="140px" width="250px"
+                        src="/myagenda/static/img/django_logo.png" alt="Logo" /></p>
+                <div class="row">
+                    <div class="col-md-5 col-md-offset-1 mt64">
+                        <h3 style="color:#3bccb9;">Interrogation sur le Framework Django</h3>
+                        <p>
+                            Cette interrogation porte sur le framework Django.
+                            Ci-dessous vous retrouvez un fichier PDF avec un exercice afin de préparez au mieux
+                            l'interrogation
+                        </p>
+                    </div>
+                    <div class="col-md-5 col-md-offset-1 mt64">
+                        <h3 style="color:#3bccb9;">Documentation officiel</h3>
+                        <p>
+                            Voici le lien de la documentation officiel de Django <br />
+                            <a href="https://docs.djangoproject.com/en/2.2/intro/tutorial01/">Documentation</a>
+                        </p>
+                    </div>
+                </div>
+            </field>
+            <field name="attendees_ids" eval="[(6, 0, [ref('dracaufeu_partner')])]" />
+        </record>
 
+        <record model="myagenda.event.pedagogic" id="event_pedagogic2">
+            <field name="name">Interrogation ODOO</field>
+            <field name="agenda_id" ref="myagenda.agenda_pedagogic1" />
+            <field name="organizer_id" ref="myagenda.salameche_partner" />
+            <field name="typeEvent">Interrogation</field>
+            <field name="start_date" eval="datetime(2020,1,7,13,45,00).strftime('%Y-%m-%d %H:%M:%S')" />
+            <field name="duration">1.30</field>
+            <field name="location">Local 405</field>
+            <field name="max_registration">22</field>
+            <field name="description" type="html">
+                <p style="text-align:center;"><img height="100px" width="250px" src="/myagenda/static/img/odoo_logo.png"
+                        alt="Logo" /></p>
+                <div class="row">
+                    <div class="col-md-5 col-md-offset-1 mt64">
+                        <h3 style="color:#3bccb9;">Interrogation sur ODOO</h3>
+                        <p>
+                            Cette interrogation porte sur la matière vue sur ODOO.
+                            Ci-dessous vous retrouvez un fichier PDF avec un exercice à quoi ressemble l'interrogation
+                            afin de préparez au mieux
+                            l'interrogation.
+
+                        </p>
+                    </div>
+                    <div class="col-md-5 col-md-offset-1 mt64">
+                        <h3 style="color:#3bccb9;">Documentation officiel</h3>
+                        <p>
+                            Voici le lien de la documentation officiel de ODOO <br />
+                            <a
+                                href="https://www.odoo.com/documentation/11.0/reference/orm.html#inheritance-and-extension">Documentation</a><br />
+                            Ainsi que le tutorial par odoo pour un 1er module <br />
+                            <a href="https://www.odoo.com/documentation/11.0/howtos/backend.html">First module</a>
+                        </p>
+                    </div>
+                </div>
+            </field>
+            <field name="attendees_ids" eval="[(6, 0, [ref('dracaufeu_partner')])]" />
+        </record>
+
+        <record model="myagenda.event.pedagogic" id="event_pedagogic3">
+            <field name="name">Cours ERPG5</field>
+            <field name="agenda_id" ref="myagenda.agenda_pedagogic1" />
+            <field name="organizer_id" ref="myagenda.salameche_partner" />
+            <field name="typeEvent">Course</field>
+            <field name="start_date" eval="datetime(2019,9,17,8,15,00).strftime('%Y-%m-%d %H:%M:%S')" />
+            <field name="end_date" eval="datetime(2020,2,6,8,15,00).strftime('%Y-%m-%d %H:%M:%S')" />
+            <field name="duration">2.00</field>
+            <field name="location">Local 401</field>
+            <field name="max_registration">24</field>
+            <field name="periodicity">Weekly</field>
+            <field name="description" type="html">
+                <p style="text-align:center;"><img height="150px" width="150px" src="/myagenda/static/img/py_logo.png"
+                        alt="Logo" /></p>
+                <div class="row">
+                    <div class="col-md-5 col-md-offset-1 mt64">
+                        <h3 style="color:#3bccb9;">Django</h3>
+                        <p>
+                            La première partie de la matière porte sur le framework Django. <br />
+                            <a href="https://docs.djangoproject.com/en/2.2/intro/tutorial01/">Documentation</a>
+                        </p>
+                    </div>
+                    <div class="col-md-5 col-md-offset-1 mt64">
+                        <h3 style="color:#3bccb9;">ODOO</h3>
+                        <p>
+                            La deuxiéme partie de la matière elle porte sur ODOO <br />
+                            <a
+                                href="https://www.odoo.com/documentation/11.0/reference/orm.html#inheritance-and-extension">Documentation</a>
+                        </p>
+                    </div>
+                </div>
+            </field>
+            <field name="attendees_ids" eval="[(6, 0, [ref('dracaufeu_partner')])]" />
+        </record>
+
+        <record model="myagenda.event.administrative" id="event_administrative1">
+            <field name="name">Fermeture du batiment</field>
+            <field name="agenda_id" ref="myagenda.agenda_administrative1" />
+            <field name="organizer_id" ref="myagenda.bulbizar_partner" />
+            <field name="typeEvent">Other</field>
+            <field name="start_date" eval="datetime(2019,9,14,00,00,00).strftime('%Y-%m-%d %H:%M:%S')" />
+            <field name="end_date" eval="datetime(2020,9,14,00,00,00).strftime('%Y-%m-%d %H:%M:%S')" />
+            <field name="duration">25.0</field>
+            <field name="location">Local 001</field>
+            <field name="max_registration">0</field>
+            <field name="periodicity">Weekly</field>
+            <field name="description" type="html">
+                <h3 style="color:#3bccb9;">Fermeture du batiment</h3>
+            </field>
+        </record>
+
+
+        <record model="myagenda.event.administrative" id="event_administrative2">
+            <field name="name">Rentrée académique</field>
+            <field name="agenda_id" ref="myagenda.agenda_administrative1" />
+            <field name="organizer_id" ref="myagenda.bulbizar_partner" />
+            <field name="typeEvent">Course</field>
+            <field name="start_date" eval="datetime(2019,9,16,8,15,00).strftime('%Y-%m-%d %H:%M:%S')" />
+            <field name="duration">8</field>
+            <field name="location">Rue royal 67, 1000 Bruxelles</field>
+            <field name="max_registration">500</field>
+            <field name="description" type="html">
+                <h3 style="color:#3bccb9;">Rentrée académique</h3>
+            </field>
+        </record>
     </data>
 </odoo>

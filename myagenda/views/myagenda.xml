@@ -87,7 +87,7 @@
                     <!--To have under a tab-->
                     <notebook>
                         <page string="Events">
-                            <field name="events_ids" context="{'default_agenda_id' : id}">
+                            <field name="events_ids" context="{'default_agenda_id' : id,'form_view_ref': 'myagenda.event_form_view'}">
                                 <tree string="Event's agenda" editable="bottom">
                                     <field name="name" />
                                     <field name="agenda_id" widget="selection" invisible="1" />
@@ -334,13 +334,13 @@
                             <hr colspan="6" style="border-top: 1px solid #e0dcdc" class="oe_read_only" />
                         </group>
                         <group string="Files">
-                            <field name="attachement" nolabel="1" widget="many2many_binary" />
+                            <field name="attachment" nolabel="1" widget="many2many_binary" />
                         </group>
                         <group colspan="4" style="text-align:center;" class="oe_read_only">
                             <field name="taken_registration" nolabel="1" widget="gauge"
                                 style="width:150px;height:120px;cursor:pointer;" />
                         </group>
-                        <group class="oe_edit_only" colspan="2" string="Stats">
+                        <group class="oe_edit_only" colspan="2" string="State">
                             <field name="attendees_count" />
                             <field name="max_registration" />
                         </group>
