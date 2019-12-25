@@ -1,6 +1,172 @@
 <odoo>
-    <data>
+    <data noupdate="0">
+        <!--                            AGENDA CREATION                               -->
+        <record model="myagenda.agenda.student" id="agenda_student1">
+            <field name="name">Agenda du conseil étudiant</field>
+            <field name="description" type="html">
+                <p style="text-align:center;"><img height="120px" width="120px"
+                        src="/myagenda/static/img/student_concil.png" alt="Logo" /></p>
+                <div class="row">
+                    <div class="col-md-5 col-md-offset-1 mt64">
+                        <h3 style="color:#3bccb9;">Nos objectifs</h3>
+                        <p>
+                            Un conseil étudiant peut jouer plusieurs rôles dans une école.<br />
+                            Celui-ci organise des activités pour les étudiants,
+                            représente l'opinion des étudiants auprès de la direction de l'école ect...
+                        </p>
+                    </div>
 
+                    <div class="col-md-5 col-md-offset-1 mt64">
+                        <h3 style="color:#3bccb9;">Activités organisées</h3>
+                        <p>
+                            Nous organisons des activités scolaires et parascolaires
+                            pour tous les étudiants de l'école.<br />
+                            Pour être au courant des activités tout au long de l'année (Réunion,déjeuner d’école, sortie
+                            hors de l'école...) inscrit toi à notre Agenda !
+                        </p>
+                    </div>
+                </div>
+            </field>
+        </record>
+
+        <record model="myagenda.agenda.pedagogic" id="agenda_pedagogic1">
+            <field name="name">Agenda de ERPG5</field>
+            <field name="description" type="html">
+                <p style="text-align:center;"><img height="120px" width="150px" src="/myagenda/static/img/erp_logo.png"
+                        alt="Logo" /></p>
+                <div class="row">
+                    <div class="col-md-5 col-md-offset-1 mt64">
+                        <h3 style="color:#3bccb9;">Progiciel de Gestion Intégrée</h3>
+                        <p>
+                            Un Progiciel de Gestion Intégrée ou Enterprise Resource Planning permet à une entreprise de
+                            centraliser son système d'information afin de disposer d'une vue globale des données liées à
+                            son activité.<br />
+                            Afin de donner une vision concrète de ces modules, l'utilisation du logiciel libre ODOO
+                            servira de support aux explications.
+                        </p>
+                    </div>
+
+                    <div class="col-md-5 col-md-offset-1 mt64">
+                        <h3 style="color:#3bccb9;">Organisation de l'UE</h3>
+                        <p>
+                            Le contenu du cours sera divisé en deux partie : <br />
+                            Laboratoire de développement collaboratif et d'un cours théorique sur l'ERP
+                            Pour être au courant de notre planning (Horaire de cours, interrogation, projet...) inscrit
+                            toi à notre Agenda !
+                        </p>
+                    </div>
+                </div>
+            </field>
+        </record>
+
+
+        <record model="myagenda.agenda.administrative" id="agenda_administrative1">
+            <field name="name">Agenda de l'ESI</field>
+            <field name="description" type="html">
+                <p style="text-align:center;"><img height="120px" width="120px" src="/myagenda/static/img/esi_logo.jpg"
+                        alt="Logo" /></p>
+                <div class="row">
+                    <div class="col-md-5 col-md-offset-1 mt64">
+                        <h3 style="color:#3bccb9;">Calendrier académique</h3>
+                        <p>
+                            Dates importantes tel que les rentrées académique, scéances d'information ect...
+                        </p>
+                    </div>
+
+                    <div class="col-md-5 col-md-offset-1 mt64">
+                        <h3 style="color:#3bccb9;">Services</h3>
+                        <p>
+                            Horaire de la bibliothéque, sécrétariat, service social et direction
+                            Pour être au courant de nos horaire à l'HE2B ESI inscrit toi
+                            à notre Agenda !
+                        </p>
+                    </div>
+                </div>
+            </field>
+        </record>
+        <!--                            END: AGENDA CREATION                               -->
+
+        <!--                              Partners/Users CREATION                          -->
+
+        <record id="salameche_partner" model="res.partner">
+            <field name="name">Salameche</field>
+            <field name="supplier">0</field>
+            <field name="is_company">0</field>
+            <field name="city">Bruxelles</field>
+            <field name="zip">1000</field>
+            <field name="country_id" ref="base.be" />
+            <field name="street">Rue royal 67</field>
+            <field name="email">Salamache</field>
+            <field name="website">http://www.heb.be/esi</field>
+            <field name="role">staff</field>
+        </record>
+
+        <record id="pikachu_partner" model="res.partner">
+            <field name="name">Pikachu</field>
+            <field name="supplier">0</field>
+            <field name="is_company">0</field>
+            <field name="city">Bruxelles</field>
+            <field name="zip">1000</field>
+            <field name="country_id" ref="base.be" />
+            <field name="street">Rue royal 67</field>
+            <field name="email">pikachu</field>
+            <field name="website">http://www.heb.be/esi</field>
+            <field name="role">staff</field>
+        </record>
+
+        <record id="bulbizard_partner" model="res.partner">
+            <field name="name">Bulbizard</field>
+            <field name="supplier">0</field>
+            <field name="is_company">0</field>
+            <field name="city">Bruxelles</field>
+            <field name="zip">1000</field>
+            <field name="country_id" ref="base.be" />
+            <field name="street">Rue royal 67</field>
+            <field name="email">Bulbizard</field>
+            <field name="website">http://www.heb.be/esi</field>
+            <field name="role">staff</field>
+        </record>
+
+        <record id="dracaufeu_partner" model="res.partner">
+            <field name="name">Dracaufeu</field>
+            <field name="supplier">0</field>
+            <field name="is_company">0</field>
+            <field name="city">Bruxelles</field>
+            <field name="zip">1000</field>
+            <field name="country_id" ref="base.be" />
+            <field name="street">Rue royal 67</field>
+            <field name="email">Dracaufeu</field>
+            <field name="website">http://www.heb.be/esi</field>
+            <field name="role">attendee</field>
+        </record>
+
+        <record id="salameche_user" model="res.users">
+            <field name="partner_id" ref="salameche_partner" />
+            <field name="login">salameche</field>
+            <field name="password">123</field>
+            <field name="groups_id" eval="[(4, ref('myagenda.group_administrator'))]" />
+        </record>
+
+        <record id="pikachu_user" model="res.users">
+            <field name="partner_id" ref="pikachu_partner" />
+            <field name="login">pikachu</field>
+            <field name="password">123</field>
+            <field name="groups_id" eval="[(4, ref('myagenda.group_teacher'))]" />
+        </record>
+
+        <record id="bulbizard_user" model="res.users">
+            <field name="partner_id" ref="bulbizard_partner" />
+            <field name="login">bulbizard</field>
+            <field name="password">123</field>
+            <field name="groups_id" eval="[(4, ref('myagenda.group_administrative'))]" />
+        </record>
+
+        <record id="dracaufeu_user" model="res.users">
+            <field name="partner_id" ref="dracaufeu_partner" />
+            <field name="login">dracaufeu</field>
+            <field name="password">123</field>
+            <field name="groups_id" eval="[(4, ref('myagenda.group_student'))]" />
+        </record>
 
     </data>
 </odoo>
