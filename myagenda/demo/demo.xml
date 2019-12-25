@@ -1,91 +1,5 @@
 <odoo>
     <data noupdate="0">
-        <!--                            AGENDA CREATION                               -->
-        <record model="myagenda.agenda.student" id="agenda_student1">
-            <field name="name">Agenda du conseil étudiant</field>
-            <field name="description" type="html">
-                <p style="text-align:center;"><img height="120px" width="120px"
-                        src="/myagenda/static/img/student_concil.png" alt="Logo" /></p>
-                <div class="row">
-                    <div class="col-md-5 col-md-offset-1 mt64">
-                        <h3 style="color:#3bccb9;">Nos objectifs</h3>
-                        <p>
-                            Un conseil étudiant peut jouer plusieurs rôles dans une école.<br />
-                            Celui-ci organise des activités pour les étudiants,
-                            représente l'opinion des étudiants auprès de la direction de l'école ect...
-                        </p>
-                    </div>
-
-                    <div class="col-md-5 col-md-offset-1 mt64">
-                        <h3 style="color:#3bccb9;">Activités organisées</h3>
-                        <p>
-                            Nous organisons des activités scolaires et parascolaires
-                            pour tous les étudiants de l'école.<br />
-                            Pour être au courant des activités tout au long de l'année (Réunion,déjeuner d’école, sortie
-                            hors de l'école...) inscrit toi à notre Agenda !
-                        </p>
-                    </div>
-                </div>
-            </field>
-        </record>
-
-        <record model="myagenda.agenda.pedagogic" id="agenda_pedagogic1">
-            <field name="name">Agenda de ERPG5</field>
-            <field name="description" type="html">
-                <p style="text-align:center;"><img height="120px" width="150px" src="/myagenda/static/img/erp_logo.png"
-                        alt="Logo" /></p>
-                <div class="row">
-                    <div class="col-md-5 col-md-offset-1 mt64">
-                        <h3 style="color:#3bccb9;">Progiciel de Gestion Intégrée</h3>
-                        <p>
-                            Un Progiciel de Gestion Intégrée ou Enterprise Resource Planning permet à une entreprise de
-                            centraliser son système d'information afin de disposer d'une vue globale des données liées à
-                            son activité.<br />
-                            Afin de donner une vision concrète de ces modules, l'utilisation du logiciel libre ODOO
-                            servira de support aux explications.
-                        </p>
-                    </div>
-
-                    <div class="col-md-5 col-md-offset-1 mt64">
-                        <h3 style="color:#3bccb9;">Organisation de l'UE</h3>
-                        <p>
-                            Le contenu du cours sera divisé en deux partie : <br />
-                            Laboratoire de développement collaboratif et d'un cours théorique sur l'ERP
-                            Pour être au courant de notre planning (Horaire de cours, interrogation, projet...) inscrit
-                            toi à notre Agenda !
-                        </p>
-                    </div>
-                </div>
-            </field>
-        </record>
-
-
-        <record model="myagenda.agenda.administrative" id="agenda_administrative1">
-            <field name="name">Agenda de l'ESI</field>
-            <field name="description" type="html">
-                <p style="text-align:center;"><img height="120px" width="120px" src="/myagenda/static/img/esi_logo.jpg"
-                        alt="Logo" /></p>
-                <div class="row">
-                    <div class="col-md-5 col-md-offset-1 mt64">
-                        <h3 style="color:#3bccb9;">Calendrier académique</h3>
-                        <p>
-                            Dates importantes tel que les rentrées académique, scéances d'information ect...  
-                        </p>
-                    </div>
-
-                    <div class="col-md-5 col-md-offset-1 mt64">
-                        <h3 style="color:#3bccb9;">Services</h3>
-                        <p>
-                            Horaire de la bibliothéque, sécrétariat, service social et direction
-                            Pour être au courant de nos horaire à l'HE2B ESI inscrit toi
-                            à notre Agenda !
-                        </p>
-                    </div>
-                </div>
-            </field>
-        </record>
-        <!--                            END: AGENDA CREATION                               -->
-
         <!--                              Partners/Users CREATION                          -->
 
         <record id="salameche_partner" model="res.partner">
@@ -144,33 +58,160 @@
             <field name="partner_id" ref="salameche_partner" />
             <field name="login">salameche</field>
             <field name="password">123</field>
-            <field name="groups_id" eval="[(6,0,[ref('base.group_user'), ref('myagenda.group_administrator')])]"/>
-            <field name="image" type="base64" file="myagenda/static/img/user_salameche-image.jpg"/>
+            <field name="groups_id" eval="[(6,0,[ref('base.group_user'), ref('myagenda.group_administrator')])]" />
+            <field name="image" type="base64" file="myagenda/static/img/user_salameche-image.jpg" />
         </record>
 
         <record id="pikachu_user" model="res.users">
             <field name="partner_id" ref="pikachu_partner" />
             <field name="login">pikachu</field>
             <field name="password">123</field>
-            <field name="groups_id" eval="[(6,0,[ref('base.group_user'), ref('myagenda.group_teacher')])]"/>
-            <field name="image" type="base64" file="myagenda/static/img/user_pikachu-image.png"/>
+            <field name="groups_id" eval="[(6,0,[ref('base.group_user'), ref('myagenda.group_teacher')])]" />
+            <field name="image" type="base64" file="myagenda/static/img/user_pikachu-image.png" />
         </record>
 
         <record id="bulbizar_user" model="res.users">
             <field name="partner_id" ref="bulbizar_partner" />
             <field name="login">bulbizar</field>
             <field name="password">123</field>
-            <field name="groups_id" eval="[(6,0,[ref('base.group_user'), ref('myagenda.group_administrative')])]"/>
-            <field name="image" type="base64" file="myagenda/static/img/user_bulbizar-image.png"/>
+            <field name="groups_id" eval="[(6,0,[ref('base.group_user'), ref('myagenda.group_administrative')])]" />
+            <field name="image" type="base64" file="myagenda/static/img/user_bulbizar-image.png" />
         </record>
 
         <record id="dracaufeu_user" model="res.users">
             <field name="partner_id" ref="dracaufeu_partner" />
             <field name="login">dracaufeu</field>
             <field name="password">123</field>
-            <field name="groups_id" eval="[(6,0,[ref('base.group_user'), ref('myagenda.group_student')])]"/>
-            <field name="image" type="base64" file="myagenda/static/img/user_dracaufeu-image.png"/>
+            <field name="groups_id" eval="[(6,0,[ref('base.group_user'), ref('myagenda.group_student')])]" />
+            <field name="image" type="base64" file="myagenda/static/img/user_dracaufeu-image.png" />
         </record>
+
+        <!--                           FIN:   Partners/Users CREATION                          -->
+        <!--                            AGENDA CREATION                               -->
+        <record model="myagenda.agenda.student" id="agenda_student1">
+            <field name="name">Agenda du conseil étudiant</field>
+            <field name="description" type="html">
+                <p style="text-align:center;"><img height="120px" width="120px"
+                        src="/myagenda/static/img/student_concil.png" alt="Logo" /></p>
+                <div class="row">
+                    <div class="col-md-5 col-md-offset-1 mt64">
+                        <h3 style="color:#3bccb9;">Nos objectifs</h3>
+                        <p>
+                            Un conseil étudiant peut jouer plusieurs rôles dans une école.<br />
+                            Celui-ci organise des activités pour les étudiants,
+                            représente l'opinion des étudiants auprès de la direction de l'école ect...
+                        </p>
+                    </div>
+
+                    <div class="col-md-5 col-md-offset-1 mt64">
+                        <h3 style="color:#3bccb9;">Activités organisées</h3>
+                        <p>
+                            Nous organisons des activités scolaires et parascolaires
+                            pour tous les étudiants de l'école.<br />
+                            Pour être au courant des activités tout au long de l'année (Réunion,déjeuner d’école, sortie
+                            hors de l'école...) inscrit toi à notre Agenda !
+                        </p>
+                    </div>
+                </div>
+            </field>
+            <field name="attendees_ids" eval="[(6, 0, [ref('dracaufeu_partner')])]" />
+        </record>
+
+        <record model="myagenda.agenda.pedagogic" id="agenda_pedagogic1">
+            <field name="name">Agenda de ERPG5</field>
+            <field name="description" type="html">
+                <p style="text-align:center;"><img height="120px" width="150px" src="/myagenda/static/img/erp_logo.png"
+                        alt="Logo" /></p>
+                <div class="row">
+                    <div class="col-md-5 col-md-offset-1 mt64">
+                        <h3 style="color:#3bccb9;">Progiciel de Gestion Intégrée</h3>
+                        <p>
+                            Un Progiciel de Gestion Intégrée ou Enterprise Resource Planning permet à une entreprise de
+                            centraliser son système d'information afin de disposer d'une vue globale des données liées à
+                            son activité.<br />
+                            Afin de donner une vision concrète de ces modules, l'utilisation du logiciel libre ODOO
+                            servira de support aux explications.
+                        </p>
+                    </div>
+
+                    <div class="col-md-5 col-md-offset-1 mt64">
+                        <h3 style="color:#3bccb9;">Organisation de l'UE</h3>
+                        <p>
+                            Le contenu du cours sera divisé en deux partie : <br />
+                            Laboratoire de développement collaboratif et d'un cours théorique sur l'ERP
+                            Pour être au courant de notre planning (Horaire de cours, interrogation, projet...) inscrit
+                            toi à notre Agenda !
+                        </p>
+                    </div>
+                </div>
+            </field>
+        </record>
+
+
+        <record model="myagenda.agenda.administrative" id="agenda_administrative1">
+            <field name="name">Agenda de l'ESI</field>
+            <field name="description" type="html">
+                <p style="text-align:center;"><img height="120px" width="120px" src="/myagenda/static/img/esi_logo.jpg"
+                        alt="Logo" /></p>
+                <div class="row">
+                    <div class="col-md-5 col-md-offset-1 mt64">
+                        <h3 style="color:#3bccb9;">Calendrier académique</h3>
+                        <p>
+                            Dates importantes tel que les rentrées académique, scéances d'information ect...
+                        </p>
+                    </div>
+
+                    <div class="col-md-5 col-md-offset-1 mt64">
+                        <h3 style="color:#3bccb9;">Services</h3>
+                        <p>
+                            Horaire de la bibliothéque, sécrétariat, service social et direction
+                            Pour être au courant de nos horaire à l'HE2B ESI inscrit toi
+                            à notre Agenda !
+                        </p>
+                    </div>
+                </div>
+            </field>
+        </record>
+        <!--                            END: AGENDA CREATION                               -->
+
+        <!--                              Event CREATION                                              -->
+
+        <record model="myagenda.event.student" id="event_student1">
+            <field name="name">Réunion étudiant</field>
+            <field name="agenda_id" ref="myagenda.agenda_student1" />
+            <field name="organizer_id" ref="myagenda.dracaufeu_partner" />
+            <field name="typeEvent">Meeting</field>
+            <field name="start_date" eval="datetime(2019,12,12,12,30,00).strftime('%Y-%m-%d %H:%M:%S')" />
+            <field name="duration">0.30</field>
+            <field name="location">Local 003</field>
+            <field name="periodicity">Monthly</field>
+            <field name="end_date" eval="datetime(2020,12,13,12,30,00).strftime('%Y-%m-%d %H:%M:%S')" />
+            <field name="description" type="html">
+                <p style="text-align:center;"><img height="120px" width="120px"
+                        src="/myagenda/static/img/student_concil.png" alt="Logo" /></p>
+                <div class="row">
+                    <div class="col-md-5 col-md-offset-1 mt64">
+                        <h3 style="color:#3bccb9;">Nos objectifs</h3>
+                        <p>
+                            Un conseil étudiant peut jouer plusieurs rôles dans une école.<br />
+                            Celui-ci organise des activités pour les étudiants,
+                            représente l'opinion des étudiants auprès de la direction de l'école ect...
+                        </p>
+                    </div>
+
+                    <div class="col-md-5 col-md-offset-1 mt64">
+                        <h3 style="color:#3bccb9;">Activités organisées</h3>
+                        <p>
+                            Nous organisons des activités scolaires et parascolaires
+                            pour tous les étudiants de l'école.<br />
+                            Pour être au courant des activités tout au long de l'année (Réunion,déjeuner d’école, sortie
+                            hors de l'école...) inscrit toi à notre Agenda !
+                        </p>
+                    </div>
+                </div>
+            </field>
+        </record>
+
 
     </data>
 </odoo>

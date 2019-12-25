@@ -7,6 +7,9 @@ from dateutil.relativedelta import relativedelta
 import base64
 
 
+DATETIME_FORMAT = "%Y-%m-%d %H:%M:%S"
+
+
 def get_default_img(cat):
     if cat == "agenda_student":
         img = 'icon-agenda_student.jpg'
@@ -291,21 +294,20 @@ class Event(models.Model):
     def create(self, vals):
         new_record = super(Event, self).create(vals)
         if vals['periodicity']:
-            DATETIME_FORMAT = "%Y-%m-%d %H:%M:%S"
             date = datetime.strptime(vals['start_date'], DATETIME_FORMAT)
             end_date = datetime.strptime(vals['end_date'], DATETIME_FORMAT)
             vals['start_date'] = date
             vals['end_date'] = end_date
             if vals['periodicity'] == 'Weekly':
-                while vals['start_date'] < vals['end_date']:
+                while vals['start_date'] + relativedelta(days=+7) <= vals['end_date']:
                     vals['start_date'] += relativedelta(days=+7)
                     record2 = super(Event, self).create(vals)
             if vals['periodicity'] == 'Monthly':
-                while vals['start_date'] < vals['end_date']:
+                while vals['start_date'] + relativedelta(months=+1) <= vals['end_date']:
                     vals['start_date'] += relativedelta(months=+1)
                     record2 = super(Event, self).create(vals)
             if vals['periodicity'] == 'Daily':
-                while vals['start_date'] < vals['end_date']:
+                while vals['start_date'] + relativedelta(days=+1) <= vals['end_date']:
                     vals['start_date'] += relativedelta(days=+1)
                     record2 = super(Event, self).create(vals)
         return new_record
