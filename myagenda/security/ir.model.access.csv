@@ -1,10 +1,4 @@
 id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
-agenda_administrative_read_all,agenda administra all,model_myagenda_agenda_administrative,,1,0,0,0
-event_administrative_read_all,event administra all,model_myagenda_event_administrative,,1,0,0,0
-agenda_student_read_all,agenda student all,model_myagenda_agenda_student,,1,0,0,0
-event_student_read_all,event student all,model_myagenda_event_student,,1,0,0,0
-agenda_pedago_read_all,agenda pedago all,model_myagenda_agenda_pedagogic,,1,0,0,0
-event_pedago_read_all,event pedago all,model_myagenda_event_pedagogic,,1,0,0,0
 event_student_student,event rw student,model_myagenda_event_student,myagenda.group_student,1,1,1,1
 agenda_student_student,agenda rw student,model_myagenda_agenda_student,myagenda.group_student,1,1,1,0
 event_pedagogic_student,event pedago student,model_myagenda_event_pedagogic,myagenda.group_student,1,0,0,0
