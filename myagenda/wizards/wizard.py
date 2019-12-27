@@ -11,10 +11,6 @@ class Wizard(models.TransientModel):
                               readonly=True,
                               string='User'
                               )
-    event_id = fields.Many2one('myagenda.event',
-                               string="Event", required=True,
-                               readonly=True
-                               )
 
     @api.multi
     def subscribe(self):
