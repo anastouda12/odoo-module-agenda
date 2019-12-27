@@ -58,7 +58,6 @@
         <field name="arch" type="xml">
             <tree string="agenda Tree" decoration-info="events_count&gt;0" decoration-muted="events_count == 0">
                 <field name="name" />
-                <field name="type_agenda" />
                 <field name="events_count" />
                 <field name="attendees_count" />
             </tree>
@@ -102,7 +101,7 @@
                         </page>
                         <page string="Attendees">
                             <field name="attendees_ids">
-                                <tree string="Attendees of agenda">
+                                <tree string="Attendees of agenda" create="1" delete="1" edit="1">
                                     <field name="name" />
                                     <field name="role" />
                                 </tree>
@@ -349,7 +348,7 @@
                         <page string="Attendees">
                             <field name="attendees_ids" attrs="{'readonly':[
                             ('max_registration', '=', 0 )]}">
-                                <tree string="Attendees of agenda">
+                                <tree string="Attendees of agenda" create="1" delete="1" edit="1">
                                     <field name="name" />
                                     <field name="role" />
                                 </tree>

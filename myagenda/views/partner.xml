@@ -12,12 +12,28 @@
                     <group>
                         <field name="role" widget="radio" />
                     </group>
-                    <notebook position="inside">
-                        <page string="Agenda attended">
-                            <field name="agenda_ids" />
+                    <notebook position="inside" expand="1">
+                        <page string="Agenda student">
+                            <field name="agenda_student_ids" context="{'form_view_ref': 'myagenda.agenda_form_view'}" />
                         </page>
-                        <page string="Events attended">
-                            <field name="events_ids" />
+                        <page string="Agenda pedagogic">
+                            <field name="agenda_pedagogic_ids"
+                                context="{'form_view_ref': 'myagenda.agenda_form_view'}" />
+                        </page>
+                        <page string="Agenda administrative">
+                            <field name="agenda_administrative_ids"
+                                context="{'form_view_ref': 'myagenda.agenda_form_view'}" />
+                        </page>
+                        <page string="Events student">
+                            <field name="events_student_ids" context="{'form_view_ref': 'myagenda.event_form_view'}" />
+                        </page>
+                        <page string="Events pedagogic">
+                            <field name="events_pedagogic_ids"
+                                context="{'form_view_ref': 'myagenda.event_form_view'}" />
+                        </page>
+                        <page string="Events administrative">
+                            <field name="events_administrative_ids"
+                                context="{'form_view_ref': 'myagenda.event_form_view'}" />
                         </page>
                     </notebook>
                 </page>
