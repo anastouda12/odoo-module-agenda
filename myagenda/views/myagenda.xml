@@ -634,25 +634,19 @@
     <menuitem id="event_administrative_menu" name="Events administrative" parent="myevent_menu"
         action="event_administrative_list_action" />
 
-    <menuitem id="myreport_menu" name="My reports" parent="main_myagenda_menu"
-        groups="myagenda.group_teacher,myagenda.group_administrator,myagenda.group_administrative" />
-
-
 
 
     <!-- =============================== FIN: Menu ============================== -->
 
     <!-- =================================== WIZARDS ============================= -->
 
-    <record model="ir.ui.view" id="wizard_form_event_student_view">
+    <record model="ir.ui.view" id="wizard_form_view">
         <field name="name">wizard.form</field>
-        <field name="model">myagenda.event.student.wizard</field>
+        <field name="model">myagenda.wizard</field>
         <field name="arch" type="xml">
             <form string="Subscriber">
                 <group>
-                    <field name="event_id" />
                     <field name="user_id" />
-
                 </group>
                 <footer>
                     <button name="subscribe" type="object" string="Subscribe" class="oe_highlight" />
@@ -666,139 +660,33 @@
     </record>
 
     <act_window id="launch_session_wizard_event_student" name="Subscribe / Unsubscribe"
-        src_model="myagenda.event.student" res_model="myagenda.event.student.wizard" view_mode="form" target="new"
+        src_model="myagenda.event.student" res_model="myagenda.wizard" view_mode="form" target="new"
         key2="client_action_multi" />
-
-    <record model="ir.ui.view" id="wizard_form_event_pedagogic_view">
-        <field name="name">wizard.form</field>
-        <field name="model">myagenda.event.pedagogic.wizard</field>
-        <field name="arch" type="xml">
-            <form string="Subscriber">
-                <group>
-                    <field name="event_id" />
-                    <field name="user_id" />
-
-                </group>
-                <footer>
-                    <button name="subscribe" type="object" string="Subscribe" class="oe_highlight" />
-                    or
-                    <button name="unsubscribe" type="object" string="Unsubscribe" class="oe_highlight" />
-                    or
-                    <button special="cancel" string="Cancel" />
-                </footer>
-            </form>
-        </field>
-    </record>
 
     <act_window id="launch_session_wizard_event_pedagogic" name="Subscribe / Unsubscribe"
-        src_model="myagenda.event.pedagogic" res_model="myagenda.event.pedagogic.wizard" view_mode="form" target="new"
+        src_model="myagenda.event.pedagogic" res_model="myagenda.wizard" view_mode="form" target="new"
         key2="client_action_multi" />
 
-    <record model="ir.ui.view" id="wizard_form_event_administrative_view">
-        <field name="name">wizard.form</field>
-        <field name="model">myagenda.event.administrative.wizard</field>
-        <field name="arch" type="xml">
-            <form string="Subscriber">
-                <group>
-                    <field name="event_id" />
-                    <field name="user_id" />
-
-                </group>
-                <footer>
-                    <button name="subscribe" type="object" string="Subscribe" class="oe_highlight" />
-                    or
-                    <button name="unsubscribe" type="object" string="Unsubscribe" class="oe_highlight" />
-                    or
-                    <button special="cancel" string="Cancel" />
-                </footer>
-            </form>
-        </field>
-    </record>
-
     <act_window id="launch_session_wizard_event_administrative" name="Subscribe / Unsubscribe"
-        src_model="myagenda.event.administrative" res_model="myagenda.event.administrative.wizard" view_mode="form"
+        src_model="myagenda.event.administrative" res_model="myagenda.wizard" view_mode="form"
         target="new" key2="client_action_multi" />
 
 
-    <record model="ir.ui.view" id="wizard_form_agenda_student_view">
-        <field name="name">wizard.form</field>
-        <field name="model">myagenda.agenda.student.wizard</field>
-        <field name="arch" type="xml">
-            <form string="Subscriber">
-                <group>
-                    <field name="agenda_id" />
-                    <field name="user_id" />
-
-                </group>
-                <footer>
-                    <button name="subscribe" type="object" string="Subscribe" class="oe_highlight" />
-                    or
-                    <button name="unsubscribe" type="object" string="Unsubscribe" class="oe_highlight" />
-                    or
-                    <button special="cancel" string="Cancel" />
-                </footer>
-            </form>
-        </field>
-    </record>
 
     <act_window id="launch_session_wizard_agenda_student" name="Subscribe / Unsubscribe"
-        src_model="myagenda.agenda.student" res_model="myagenda.agenda.student.wizard" view_mode="form" target="new"
+        src_model="myagenda.agenda.student" res_model="myagenda.wizard" view_mode="form" target="new"
         key2="client_action_multi" />
 
-    <record model="ir.ui.view" id="wizard_form_agenda_pedagogic_view">
-        <field name="name">wizard.form</field>
-        <field name="model">myagenda.agenda.pedagogic.wizard</field>
-        <field name="arch" type="xml">
-            <form string="Subscriber">
-                <group>
-                    <field name="agenda_id" />
-                    <field name="user_id" />
-
-                </group>
-                <footer>
-                    <button name="subscribe" type="object" string="Subscribe" class="oe_highlight" />
-                    or
-                    <button name="unsubscribe" type="object" string="Unsubscribe" class="oe_highlight" />
-                    or
-                    <button special="cancel" string="Cancel" />
-                </footer>
-            </form>
-        </field>
-    </record>
 
     <act_window id="launch_session_wizard_agenda_pedagogic" name="Subscribe / Unsubscribe"
-        src_model="myagenda.agenda.pedagogic" res_model="myagenda.agenda.pedagogic.wizard" view_mode="form" target="new"
+        src_model="myagenda.agenda.pedagogic" res_model="myagenda.wizard" view_mode="form" target="new"
         key2="client_action_multi" />
 
 
-    <record model="ir.ui.view" id="wizard_form_agenda_administrative_view">
-        <field name="name">wizard.form</field>
-        <field name="model">myagenda.agenda.administrative.wizard</field>
-        <field name="arch" type="xml">
-            <form string="Subscriber">
-                <group>
-                    <field name="agenda_id" />
-                    <field name="user_id" />
-
-                </group>
-                <footer>
-                    <button name="subscribe" type="object" string="Subscribe" class="oe_highlight" />
-                    or
-                    <button name="unsubscribe" type="object" string="Unsubscribe" class="oe_highlight" />
-                    or
-                    <button special="cancel" string="Cancel" />
-                </footer>
-            </form>
-        </field>
-    </record>
-
     <act_window id="launch_session_wizard_agenda_aministrative" name="Subscribe / Unsubscribe"
-        src_model="myagenda.agenda.administrative" res_model="myagenda.agenda.administrative.wizard" view_mode="form"
+        src_model="myagenda.agenda.administrative" res_model="myagenda.wizard" view_mode="form"
         target="new" key2="client_action_multi" />
 
     <!-- =================================== FIN : WIZARDS ============================= -->
-
-
-
 
 </odoo>

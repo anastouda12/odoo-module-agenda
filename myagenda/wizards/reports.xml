@@ -21,9 +21,13 @@
         </field>
     </record>
 
-    <act_window id="action_agenda_event_report_wizard" name="All Events Report" res_model="myagenda.event.report.wizard"
-        view_mode="form" target="new" />
+    <act_window id="action_agenda_student_event_report_wizard" name="Events Report" res_model="myagenda.event.report.wizard"
+        view_mode="form" target="new" src_model="myagenda.agenda.student" key2="client_action_multi" />
 
-    <menuitem action="action_agenda_event_report_wizard" id="menu_agenda_report_wizard" parent="myreport_menu" />
+    <act_window id="action_agenda_pedagogic_event_report_wizard" name="Events Report" res_model="myagenda.event.report.wizard"
+        view_mode="form" target="new" src_model="myagenda.agenda.pedagogic" key2="client_action_multi" />
+
+    <act_window id="action_agenda_administrative_event_report_wizard" name="Events Report" res_model="myagenda.event.report.wizard"
+        view_mode="form" target="new" src_model="myagenda.agenda.administrative" key2="client_action_multi" />
 
 </odoo>

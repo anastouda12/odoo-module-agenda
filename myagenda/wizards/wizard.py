@@ -9,132 +9,29 @@ class Wizard(models.TransientModel):
 
     user_id = fields.Many2one('res.partner', default=_get_partner,
                               readonly=True,
-                              string='User'
+                              string='You'
                               )
 
     @api.multi
     def subscribe(self):
-        if self.env.user.partner_id in self.event_id.agenda_id.attendees_ids:
-            self.event_id.attendees_ids |= self.env.user.partner_id
-            return {}
+        model = self.env.context.get('active_model')
+        model_id = self.env[model].browse(self._context.get('active_id'))
+        if model == 'myagenda.event.student' or model == 'myagenda.event.pedagogic' or model == 'myagenda.event.administrative':
+            if self.env.user.partner_id not in model_id.agenda_id.attendees_ids:
+                raise exceptions.ValidationError(
+                    _("You are not registered in the corresponding agenda !"))
+                return {}
+            elif self.env.user.partner_id in model_id.agenda_id.attendees_ids:
+                model_id.attendees_ids |= self.env.user.partner_id
+                return {}
         else:
-            raise exceptions.ValidationError(
-                _("You are not registered in the corresponding agenda !)"))
+            model_id.attendees_ids |= self.env.user.partner_id
             return {}
 
     @api.multi
     def unsubscribe(self):
+        model = self.env.context.get('active_model')
+        model_id = self.env[model].browse(self._context.get('active_id'))
         partner = self.env.user.partner_id
-        self.event_id.attendees_ids = [(2, partner.id)]
-        return {}
-
-
-class WizardEventStudent(models.TransientModel):
-    _name = 'myagenda.event.student.wizard'
-    _inherit = "myagenda.wizard"
-
-    def _default_event(self):
-        return self.env['myagenda.event.student'].browse(self._context.get('active_id'))
-
-    event_id = fields.Many2one('myagenda.event.student',
-                               string="Event", required=True, default=_default_event,
-                               readonly=True
-                               )
-
-
-class WizardEventPedagogic(models.TransientModel):
-    _name = 'myagenda.event.pedagogic.wizard'
-    _inherit = "myagenda.wizard"
-
-    def _default_event(self):
-        return self.env['myagenda.event.pedagogic'].browse(self._context.get('active_id'))
-
-    event_id = fields.Many2one('myagenda.event.pedagogic',
-                               string="Event", required=True, default=_default_event,
-                               readonly=True
-                               )
-
-
-class WizardEventAdministrative(models.TransientModel):
-    _name = 'myagenda.event.administrative.wizard'
-    _inherit = "myagenda.wizard"
-
-    def _default_event(self):
-        return self.env['myagenda.event.administrative'].browse(self._context.get('active_id'))
-
-    event_id = fields.Many2one('myagenda.event.administrative',
-                               string="Event", required=True, default=_default_event,
-                               readonly=True
-                               )
-
-
-class WizardAgendaStudent(models.TransientModel):
-    _name = 'myagenda.agenda.student.wizard'
-    _inherit = "myagenda.wizard"
-
-    def _default_event(self):
-        return self.env['myagenda.agenda.student'].browse(self._context.get('active_id'))
-
-    agenda_id = fields.Many2one('myagenda.agenda.student',
-                                string="Agenda", required=True, default=_default_event,
-                                readonly=True
-                                )
-
-    @api.multi
-    def subscribe(self):
-        self.agenda_id.attendees_ids |= self.env.user.partner_id
-        return {}
-
-    @api.multi
-    def unsubscribe(self):
-        partner = self.env.user.partner_id
-        self.agenda_id.attendees_ids = [(2, partner.id)]
-        return {}
-
-
-class WizardAgendaPedagogic(models.TransientModel):
-    _name = 'myagenda.agenda.pedagogic.wizard'
-    _inherit = "myagenda.wizard"
-
-    def _default_event(self):
-        return self.env['myagenda.agenda.pedagogic'].browse(self._context.get('active_id'))
-
-    agenda_id = fields.Many2one('myagenda.agenda.pedagogic',
-                                string="Agenda", required=True, default=_default_event,
-                                readonly=True
-                                )
-
-    @api.multi
-    def subscribe(self):
-        self.agenda_id.attendees_ids |= self.env.user.partner_id
-        return {}
-
-    @api.multi
-    def unsubscribe(self):
-        partner = self.env.user.partner_id
-        self.agenda_id.attendees_ids = [(2, partner.id)]
-        return {}
-
-
-class WizardAgendaPedagogic(models.TransientModel):
-    _name = 'myagenda.agenda.administrative.wizard'
-    _inherit = "myagenda.wizard"
-
-    def _default_event(self):
-        return self.env['myagenda.agenda.administrative'].browse(self._context.get('active_id'))
-
-    agenda_id = fields.Many2one('myagenda.agenda.administrative',
-                                string="Agenda", required=True, default=_default_event,
-                                readonly=True
-                                )
-
-    @api.multi
-    def subscribe(self):
-        self.agenda_id.attendees_ids |= self.env.user.partner_id
-        return {}
-
-    @api.multi
-    def unsubscribe(self):
-        partner = self.env.user.partner_id
-        self.agenda_id.attendees_ids = [(2, partner.id)]
+        model_id.attendees_ids = [(2, partner.id)]
         return {}

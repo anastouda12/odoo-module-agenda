@@ -45,7 +45,11 @@ class ReportAgendaEvent(models.AbstractModel):
         date_end_obj = datetime.strptime(date_end, DATE_FORMAT)
 
         docs = []
-        events = self.env['myagenda.event.student'].search([])
+
+        model = self.env.context.get('active_model')
+        agenda = self.env[model].browse(self._context.get('active_id'))
+        events = agenda.events_ids
+
         for event in events:
             if(event.start_date >= date_start and event.start_date <= date_end):
 
@@ -53,50 +57,7 @@ class ReportAgendaEvent(models.AbstractModel):
                     'name': event.name,
                     'type': event.typeEvent,
                     'start_date': event.start_date,
-                    'organizer': event.organizer_id.name,
-                    'agenda': event.agenda_id.name,
                     'location': event.location,
-
-
-
-
-
-                })
-
-        events = self.env['myagenda.event.pedagogic'].search([])
-        for event in events:
-            if(event.start_date >= date_start and event.start_date <= date_end):
-
-                docs.append({
-                    'name': event.name,
-                    'type': event.typeEvent,
-                    'start_date': event.start_date,
-                    'organizer': event.organizer_id.name,
-                    'agenda': event.agenda_id.name,
-                    'location': event.location,
-
-
-
-
-
-                })
-
-        events = self.env['myagenda.event.administrative'].search([])
-        for event in events:
-            if(event.start_date >= date_start and event.start_date <= date_end):
-
-                docs.append({
-                    'name': event.name,
-                    'type': event.typeEvent,
-                    'start_date': event.start_date,
-                    'organizer': event.organizer_id.name,
-                    'agenda': event.agenda_id.name,
-                    'location': event.location,
-
-
-
-
-
                 })
 
         return {
@@ -104,5 +65,6 @@ class ReportAgendaEvent(models.AbstractModel):
             'doc_model': data['model'],
             'date_start': date_start,
             'date_end': date_end,
+            'agenda': agenda.name,
             'docs': docs,
         }
