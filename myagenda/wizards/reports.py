@@ -1,6 +1,7 @@
 from datetime import datetime, timedelta
 
-from odoo import models, fields, api
+from odoo import models, fields, api, exceptions, _
+
 from odoo.tools import DEFAULT_SERVER_DATE_FORMAT as DATE_FORMAT, DEFAULT_SERVER_DATETIME_FORMAT as DATETIME_FORMAT
 
 
@@ -16,18 +17,21 @@ class AgendaEventReportWizard(models.TransientModel):
     def get_report(self):
         """Call when button 'Get Report' clicked.
         """
-        data = {
-            'ids': self.ids,
-            'model': self._name,
-            'form': {
-                'date_start': self.date_start,
-                'date_end': self.date_end,
-            },
-        }
-
-        # use `module_name.report_id` as reference.
-        # `report_action()` will call `get_report_values()` and pass `data` automatically.
-        return self.env.ref('myagenda.event_report').report_action(self, data=data)
+        model = self.env.context.get('active_model')
+        model_id = self.env[model].browse(self._context.get('active_id'))
+        if self.env.user.partner_id == model_id.organizer_id:
+            data = {
+                'ids': self.ids,
+                'model': self._name,
+                'form': {
+                    'date_start': self.date_start,
+                    'date_end': self.date_end,
+                },
+            }
+            return self.env.ref('myagenda.event_report').report_action(self, data=data)
+        else:
+            raise exceptions.ValidationError(
+                _("Action limited to the organizer : %s") % model_id.organizer_id.name)
 
 
 class ReportAgendaEvent(models.AbstractModel):

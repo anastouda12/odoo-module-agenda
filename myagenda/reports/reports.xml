@@ -33,21 +33,20 @@
 
 
     <report id="event_report" model="myagenda.event.report.wizard" string="Events Report" report_type="qweb-pdf"
-        name="myagenda.event_report_view" paperformat="paperformat_agenda_event_report" menu="False" />
-
+        name="myagenda.event_report_view" paperformat="paperformat_agenda_event_report" />
 
     <report id="report_attendees_student" model="myagenda.event.student" string="Attendees Report"
         name="myagenda.report_attendees_view_student" file="myagenda.report_attendees" report_type="qweb-pdf"
-        paperformat="paperformat_attendees_event_report" />
+        paperformat="paperformat_attendees_event_report" groups="myagenda.group_student" />
 
 
     <report id="report_attendees_pedago" model="myagenda.event.pedagogic" string="Attendees Report"
         name="myagenda.report_attendees_view_pedago" file="myagenda.report_attendees" report_type="qweb-pdf"
-        paperformat="paperformat_attendees_event_report" />
+        paperformat="paperformat_attendees_event_report" groups="myagenda.group_teacher" />
 
     <report id="report_attendees_administra" model="myagenda.event.administrative" string="Attendees Report"
         name="myagenda.report_attendees_view_administrative" file="myagenda.report_attendees" report_type="qweb-pdf"
-        paperformat="paperformat_attendees_event_report" />
+        paperformat="paperformat_attendees_event_report" groups="myagenda.group_administrative" />
 
 
     <template id="event_report_view">
