@@ -420,7 +420,7 @@
         <field name="arch" type="xml">
             <graph string="Event by agenda">
                 <field name="name" />
-                <field name="taken_registration" type="measure" />
+                <field name="attendees_count" type="measure" />
             </graph>
         </field>
     </record>
