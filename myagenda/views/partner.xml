@@ -57,8 +57,7 @@
         <field name="context">{'default_role':'attendee'}</field>
     </record>
 
-    <menuitem id="configuration_menu" name="Members" parent="main_myagenda_menu"
-        groups="myagenda.group_administrator" />
+    <menuitem id="configuration_menu" name="Members" parent="main_myagenda_menu" />
     <menuitem id="staff_menu" name="Staff" parent="configuration_menu" action="staff_list_action" />
 
     <menuitem id="attendees_menu" name="Attendees" parent="configuration_menu" action="attendees_list_action" />
