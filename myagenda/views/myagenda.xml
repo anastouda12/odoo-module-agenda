@@ -58,6 +58,7 @@
         <field name="arch" type="xml">
             <tree string="agenda Tree" decoration-info="events_count&gt;0" decoration-muted="events_count == 0">
                 <field name="name" />
+                <field name="organizer_id" />
                 <field name="events_count" />
                 <field name="attendees_count" />
             </tree>
@@ -75,6 +76,7 @@
                     <group>
                         <group string="General">
                             <field name="name" />
+                            <field name="organizer_id" />
                             <field name="type_agenda" />
                         </group>
                         <group string="Description" colspan="6">

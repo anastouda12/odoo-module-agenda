@@ -90,6 +90,7 @@
         <!--                            AGENDA CREATION                               -->
         <record model="myagenda.agenda.student" id="agenda_student1">
             <field name="name">Agenda du conseil étudiant</field>
+            <field name="organizer_id" ref="myagenda.dracaufeu_partner" />
             <field name="description" type="html">
                 <p style="text-align:center;"><img height="120px" width="120px"
                         src="/myagenda/static/img/student_concil.png" alt="Logo" /></p>
@@ -119,6 +120,7 @@
 
         <record model="myagenda.agenda.pedagogic" id="agenda_pedagogic1">
             <field name="name">Agenda de ERPG5</field>
+            <field name="organizer_id" ref="myagenda.pikachu_partner" />
             <field name="description" type="html">
                 <p style="text-align:center;"><img height="120px" width="150px" src="/myagenda/static/img/erp_logo.png"
                         alt="Logo" /></p>
@@ -151,6 +153,7 @@
 
         <record model="myagenda.agenda.administrative" id="agenda_administrative1">
             <field name="name">Agenda de l'ESI</field>
+            <field name="organizer_id" ref="myagenda.bulbizar_partner" />
             <field name="description" type="html">
                 <p style="text-align:center;"><img height="120px" width="120px" src="/myagenda/static/img/esi_logo.jpg"
                         alt="Logo" /></p>
@@ -247,7 +250,7 @@
         <record model="myagenda.event.pedagogic" id="event_pedagogic2">
             <field name="name">Interrogation ODOO</field>
             <field name="agenda_id" ref="myagenda.agenda_pedagogic1" />
-            <field name="organizer_id" ref="myagenda.salameche_partner" />
+            <field name="organizer_id" ref="myagenda.pikachu_partner" />
             <field name="typeEvent">Interrogation</field>
             <field name="start_date" eval="datetime(2020,1,7,13,45,00).strftime('%Y-%m-%d %H:%M:%S')" />
             <field name="duration">1.30</field>
@@ -285,7 +288,7 @@
         <record model="myagenda.event.pedagogic" id="event_pedagogic3">
             <field name="name">Cours ERPG5</field>
             <field name="agenda_id" ref="myagenda.agenda_pedagogic1" />
-            <field name="organizer_id" ref="myagenda.salameche_partner" />
+            <field name="organizer_id" ref="myagenda.pikachu_partner" />
             <field name="typeEvent">Course</field>
             <field name="start_date" eval="datetime(2019,9,17,8,15,00).strftime('%Y-%m-%d %H:%M:%S')" />
             <field name="end_date" eval="datetime(2020,2,6,8,15,00).strftime('%Y-%m-%d %H:%M:%S')" />

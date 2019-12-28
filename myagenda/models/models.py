@@ -61,6 +61,11 @@ class Agenda(models.Model):
         readonly=True
     )
 
+    organizer_id = fields.Many2one(
+        'res.partner', String='Organizer', ondelete='cascade', domain=[('role', '=', "staff")],
+        required=True,
+        store=True
+    )
     @api.depends('events_ids')
     def _compute_event(self):
         for record in self:
@@ -107,6 +112,12 @@ class AgendaStudent(models.Model):
     )
     events_ids = fields.One2many(
         'myagenda.event.student', 'agenda_id', string='Events', ondelete='cascade',
+        store=True
+    )
+
+    organizer_id = fields.Many2one(
+        'res.partner', String='Organizer', ondelete='cascade', domain=[('role', '=', "attendee")],
+        required=True,
         store=True
     )
     image = fields.Binary("Image", attachment=True,
@@ -158,9 +169,9 @@ class Event(models.Model):
         store=True,
     )
     organizer_id = fields.Many2one(
-        'res.partner', String='Organizer', ondelete='cascade', domain=[('role', '=', "staff")],
-        required=True,
-        store=True
+        'res.partner', String='Organizer', related='agenda_id.organizer_id', store=True,
+        readonly=True
+
     )
     typeEvent = fields.Selection(string='Type', selection=[(
         'Course', 'Course'), ('Interrogation', 'Interrogation'), ('Exam', 'Exam'), ('Sport event', 'Sport event'),
@@ -260,7 +271,7 @@ class Event(models.Model):
             raise exceptions.ValidationError(
                 _("Incorrect 'max registration' value. The number of available registration may not be less than attendees"))
 
-    @api.onchange('max_registration', 'attendees_ids')
+    @api.onchange('organizer_id', 'attendees_ids')
     def _check_organizer_not_in_attendees(self):
         for r in self:
             if r.organizer_id and r.organizer_id in r.attendees_ids:
@@ -274,13 +285,6 @@ class Event(models.Model):
                 if r and r not in record.agenda_id.attendees_ids:
                     raise exceptions.ValidationError(
                         _("Attendee not registered in the corresponding agenda"))
-
-    @api.constrains('organizer_id')
-    def _verify_valid_organizer(self):
-        for r in self:
-            if r.organizer_id and r.organizer_id not in r.agenda_id.attendees_ids:
-                raise exceptions.ValidationError(
-                    _("Organizer not registered in the corresponding agenda"))
 
     @api.constrains('end_date', 'periodicity')
     def _check_good_state_periodicity_enddate(self):
@@ -338,12 +342,6 @@ class eventStudent(models.Model):
         'myagenda.agenda.student', String='Agenda', ondelete='cascade',
         required=True,
         store=True,
-    )
-    organizer_id = fields.Many2one(
-        'res.partner', String='Organizer', ondelete='cascade', domain=[('role', '=', "attendee")], default=lambda self: self.env.user.partner_id,
-        required=True,
-        readonly=True,
-        store=True
     )
 
 
