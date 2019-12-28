@@ -53,9 +53,9 @@
     <template id="event_report_view">
         <div class="page">
             <div class="header" style="border-bottom: 1px solid black;background-color: #14c9ba;color:white;">
-                <h3 class="text-center" style="font-family: sans-serif;">Events Report</h3>
+                <h3 class="text-center" style="font-family: sans-serif;"> <strong>
+                        <t t-esc="agenda" /></strong></h3>
                 <h4 class="text-center">
-                    <strong><t t-esc="agenda" /></strong><br />
                     <strong>From</strong>:
                     <t t-esc="date_start" />
                     <strong>To</strong>:
@@ -119,10 +119,11 @@
         <t t-foreach="docs" t-as="doc">
             <div class="page">
                 <div class="header" style="border-bottom: 1px solid black;background-color: #14c9ba;color:white;">
-                    <h3 class="text-center" style="font-family: sans-serif;">Attendees Event Report</h3>
+                    <h3 class="text-center" style="font-family: sans-serif;"><strong>
+                            <p t-field="doc.name" /></strong></h3>
                     <h4 class="text-center">
                         <strong>
-                            <p t-field="doc.name" /></strong>
+                            <p t-field="doc.agenda_id" /></strong>
                     </h4>
                 </div>
                 <div class="article">
