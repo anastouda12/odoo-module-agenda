@@ -1,1 +1,6 @@
-name,agenda,type,date,endate,duration,location,periodicity
+name,description,agenda,type,date,end date,duration,location,periodicity
+Cours WEBG5,Cours de Developpement WEB,agenda WEBG5,Course,2019/12/11 08:15:00,2020/02/11 08:15:00,2,Local 401,Weekly
+Cours DONG5,Cours de Persistance de données IV,agenda DONG5,Course,2019/12/10 10:30:00,2020/02/14 10:30:00,2,Local 403,Weekly
+Cours MOBG5,Cours de Développement mobile,agenda MOBG5,Course,2019/12/12 13:45:00,2020/02/12 13:45:00,2,Local 405,Weekly
+Cours ORGG5,Cours d'organisation des entreprise,agenda ORGG5,Course,2019/12/10 16:00:00,2020/02/14 16:00:00,2,Local 003,Weekly
+Cours PRJG5,Cours de gestion de projet,agenda PRJG5,Course,2019/12/13 16:00:00,2020/02/13 16:00:00,2,Local 405,Weekly

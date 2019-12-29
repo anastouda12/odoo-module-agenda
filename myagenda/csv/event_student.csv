@@ -1,1 +1,4 @@
-name,agenda,type,date,endate,duration,location,periodicity
+name,description,agenda,type,date,end date,duration,location,periodicity
+SKI,Voyage au ski,agenda voyage etudiant,Trip,2020/02/1 07:15:00,2020/02/8 00:00:00,0,France,Daily
+Journée sportive,Journée sportive des étudiants de l'esi,agenda sportif,Sport event,2020/02/20 09:15:00,,8,Namur,
+Concours cybersécurité,Concours de cybersécurité à l'esi,agenda concours,Competition,2020/02/15 19:15:00,,2,HE2B ESI,

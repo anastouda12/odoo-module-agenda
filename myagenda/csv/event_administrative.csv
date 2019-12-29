@@ -1,1 +1,10 @@
-name,agenda,type,date,endate,duration,location,periodicity
+name,description,agenda,type,date,end date,duration,location,periodicity
+Absence SRV,Absence du professeur SRV,agenda valves,Other,2020/01/12 08:00:00,,0,HE2B ESI,
+Absence MCD,Absence du professeur MCD,agenda valves,Other,2020/01/22 08:00:00,,0,HE2B ESI,
+Remediation MAT1,Remediation du dernier chapitre de mathématique,agenda valves,Course,2020/02/12 16:00:00,,2,HE2B ESI,
+Ouverture secretariat,Ouverture du secretariat de l'esi,agenda secretariat,Other,2020/01/7 08:00:00,2020/02/7 16:00:00,8,local 001,Daily
+Fermeture secretariat,Fermeture du secretariat de l'esi,agenda secretariat,Other,2020/02/11 08:00:00,,0,local 001,
+Conference,Conference JAVA,agenda valves,Conference,2020/02/19 18:00:00,,2,local 004,
+
+
+
