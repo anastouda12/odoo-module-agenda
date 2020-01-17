@@ -75,17 +75,15 @@
                     <field name="image" widget="image" class="oe_avatar" />
                     <group>
                         <group string="General">
-                            <field name="id" invisible="1" />
-                            <field name="partner_id" invisible="1" />
                             <field name="rules_edit" invisible="1" />
-                            <field name="name" attrs="{'readonly':[('rules_edit','=',False)]}" />
-                            <field name="organizer_id" attrs="{'readonly':[('rules_edit','=',False)]}" />
+                            <field name="name" attrs="{'readonly':['&amp;',('id','>',0),('rules_edit','=',False)]}" />
+                            <field name="organizer_id" />
                             <field name="type_agenda" />
                         </group>
                         <group string="Description" colspan="6">
                             <hr colspan="6" style="border-top: 1px solid #e0dcdc" class="oe_read_only" />
                             <field name="description" widget="html" colspan="6" nolabel="1"
-                                attrs="{'readonly':[('rules_edit','=',False)]}" />
+                                attrs="{'readonly':['&amp;',('id','>',0),('rules_edit','=',False)]}" />
                             <hr colspan="6" style="border-top: 1px solid #e0dcdc" class="oe_read_only" />
                         </group>
                     </group>
@@ -94,7 +92,7 @@
                         <page string="Events">
                             <field name="events_ids"
                                 context="{'default_agenda_id' : id,'form_view_ref': 'myagenda.event_form_view'}"
-                                attrs="{'readonly':[('rules_edit','=',False)]}">
+                                attrs="{'readonly':['&amp;',('id','>',0),('rules_edit','=',False)]}">
                                 <tree string="Event's agenda" editable="bottom">
                                     <field name="name" />
                                     <field name="agenda_id" widget="selection" invisible="1" />
@@ -320,36 +318,34 @@
                     <field name="image" widget="image" class="oe_avatar" />
                     <group>
                         <group string="General">
-                            <field name="id" invisible="1" />
-                            <field name="partner_id" invisible="1"/>
                             <field name="rules_edit" invisible="1" />
-                            <field name="name" attrs="{'readonly':[('rules_edit','=',False)]}" />
+                            <field name="name" attrs="{'readonly':['&amp;',('id','>',0),('rules_edit','=',False)]}" />
                             <field name="type_agenda" invisible="True"
-                                attrs="{'readonly':[('rules_edit','=',False)]}" />
+                                attrs="{'readonly':['&amp;',('id','>',0),('rules_edit','=',False)]}" />
                             <field name="agenda_id" options="{'no_quick_create':True,'no_create_edit':True}"
-                                widget="selection" attrs="{'readonly':[('rules_edit','=',False)]}" />
+                                widget="selection" attrs="{'readonly':['&amp;',('id','>',0),('rules_edit','=',False)]}" />
                             <field name="organizer_id" options="{'no_quick_create':True,'no_create_edit':True}"
                                 widget="selection" />
                             <field name="typeEvent" widget="selection"
-                                attrs="{'readonly':[('rules_edit','=',False)]}" />
+                                attrs="{'readonly':['&amp;',('id','>',0),('rules_edit','=',False)]}" />
                         </group>
                         <group string="Schedule">
-                            <field name="start_date" attrs="{'readonly':[('rules_edit','=',False)]}" />
-                            <field name="end_date" attrs="{'readonly':[('rules_edit','=',False)]}" />
+                            <field name="start_date" attrs="{'readonly':['&amp;',('id','>',0),('rules_edit','=',False)]}" />
+                            <field name="end_date" attrs="{'readonly':['&amp;',('id','>',0),('rules_edit','=',False)]}" />
                             <field name="duration" widget="float_time"
-                                attrs="{'readonly':[('rules_edit','=',False)]}" />
-                            <field name="location" attrs="{'readonly':[('rules_edit','=',False)]}" />
-                            <field name="periodicity" attrs="{'readonly':[('rules_edit','=',False)]}" />
+                                attrs="{'readonly':['&amp;',('id','>',0),('rules_edit','=',False)]}" />
+                            <field name="location" attrs="{'readonly':['&amp;',('id','>',0),('rules_edit','=',False)]}" />
+                            <field name="periodicity" attrs="{'readonly':['&amp;',('id','>',0),('rules_edit','=',False)]}" />
                         </group>
                         <group string="Description" colspan="6" style="">
                             <hr colspan="6" style="border-top: 1px solid #e0dcdc" class="oe_read_only" />
                             <field name="description" nolabel="1" widget="html"
-                                attrs="{'readonly':[('rules_edit','=',False)]}" />
+                                attrs="{'readonly':['&amp;',('id','>',0),('rules_edit','=',False)]}" />
                             <hr colspan="6" style="border-top: 1px solid #e0dcdc" class="oe_read_only" />
                         </group>
                         <group string="Files">
                             <field name="attachment" nolabel="1" widget="many2many_binary"
-                                attrs="{'readonly':[('rules_edit','=',False)]}" />
+                                attrs="{'readonly':['&amp;',('id','>',0),('rules_edit','=',False)]}" />
                         </group>
                         <group colspan="4" style="text-align:center;" class="oe_read_only">
                             <field name="taken_registration" nolabel="1" widget="gauge"
@@ -357,7 +353,7 @@
                         </group>
                         <group class="oe_edit_only" colspan="2" string="State">
                             <field name="attendees_count" />
-                            <field name="max_registration" attrs="{'readonly':[('rules_edit','=',False)]}" />
+                            <field name="max_registration" attrs="{'readonly':['&amp;',('id','>',0),('rules_edit','=',False)]}" />
                         </group>
                     </group>
                     <notebook>

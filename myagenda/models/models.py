@@ -64,23 +64,16 @@ class Agenda(models.Model):
     organizer_id = fields.Many2one(
         'res.partner', String='Organizer', ondelete='cascade', domain=[('role', '=', "staff")],
         required=True,
-        store=True
-    )
+        store=True,
+        readonly=True,  
+        default=lambda self: self.env.user.partner_id)
 
-    partner_id = fields.Many2one('res.partner', 'Customer', default=lambda self: self.env.user.partner_id,
-                                 readonly=True)
     rules_edit = fields.Boolean(compute='compute_rules_edit')
-    
-                    
+
     def compute_rules_edit(self):
         for r in self:
-            r.rules_edit = True     
-            if r.organizer_id == r.partner_id and r.id > 0:
+            if r.organizer_id in self.env.user.partner_id:
                 r.rules_edit = True
-            elif r.organizer_id == r.partner_id and r.id < 0:
-                r.rules_edit = True
-            elif r.organizer_id != r.partner_id and r.id < 0:
-                r.rules_edit = True;
             else:
                 r.rules_edit = False
 
@@ -136,8 +129,10 @@ class AgendaStudent(models.Model):
     organizer_id = fields.Many2one(
         'res.partner', String='Organizer', ondelete='cascade', domain=[('role', '=', "attendee")],
         required=True,
-        store=True
-    )
+        store=True,
+        readonly=True, 
+        default=lambda self: self.env.user.partner_id)
+    
     image = fields.Binary("Image", attachment=True,
                           default=get_default_img("agenda_student"))
 
@@ -260,24 +255,15 @@ class Event(models.Model):
 
     color = fields.Integer()
 
-    partner_id = fields.Many2one('res.partner', 'Customer', default=lambda self: self.env.user.partner_id,
-                                 readonly=True
-                                 )
-
     rules_edit = fields.Boolean(compute='compute_rules_edit')
-                
+
     def compute_rules_edit(self):
         for r in self:
-            r.rules_edit = True     
-            if r.organizer_id == r.partner_id and r.id > 0:
+            if r.organizer_id in self.env.user.partner_id:
                 r.rules_edit = True
-            elif r.organizer_id == r.partner_id and r.id < 0:
-                r.rules_edit = True
-            elif r.organizer_id != r.partner_id and r.id < 0:
-                r.rules_edit = True;
             else:
                 r.rules_edit = False
-
+                
     @api.depends('attendees_ids')
     def _compute_attendees(self):
         for record in self:
