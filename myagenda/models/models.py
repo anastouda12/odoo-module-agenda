@@ -67,13 +67,22 @@ class Agenda(models.Model):
         store=True
     )
 
-    partner_id = fields.Many2one('res.partner', compute='_get_partner', 'Partner')
-
-    @api.depends('partner_id')
-    def _get_partner(self):
-        partner = self.env['res.users'].browse(self.env.uid).partner_id
-        for rec in self:
-            rec.partner_id = partner.id
+    partner_id = fields.Many2one('res.partner', 'Customer', default=lambda self: self.env.user.partner_id,
+                                 readonly=True)
+    rules_edit = fields.Boolean(compute='compute_rules_edit')
+    
+                    
+    def compute_rules_edit(self):
+        for r in self:
+            r.rules_edit = True     
+            if r.organizer_id == r.partner_id and r.id > 0:
+                r.rules_edit = True
+            elif r.organizer_id == r.partner_id and r.id < 0:
+                r.rules_edit = True
+            elif r.organizer_id != r.partner_id and r.id < 0:
+                r.rules_edit = True;
+            else:
+                r.rules_edit = False
 
     @api.depends('events_ids')
     def _compute_event(self):
@@ -251,13 +260,23 @@ class Event(models.Model):
 
     color = fields.Integer()
 
-    partner_id = fields.Many2one('res.partner', compute='_get_partner', 'Partner')
+    partner_id = fields.Many2one('res.partner', 'Customer', default=lambda self: self.env.user.partner_id,
+                                 readonly=True
+                                 )
 
-    @api.depends('partner_id')
-    def _get_partner(self):
-        partner = self.env['res.users'].browse(self.env.uid).partner_id
-        for rec in self:
-            rec.partner_id = partner.id
+    rules_edit = fields.Boolean(compute='compute_rules_edit')
+                
+    def compute_rules_edit(self):
+        for r in self:
+            r.rules_edit = True     
+            if r.organizer_id == r.partner_id and r.id > 0:
+                r.rules_edit = True
+            elif r.organizer_id == r.partner_id and r.id < 0:
+                r.rules_edit = True
+            elif r.organizer_id != r.partner_id and r.id < 0:
+                r.rules_edit = True;
+            else:
+                r.rules_edit = False
 
     @api.depends('attendees_ids')
     def _compute_attendees(self):
