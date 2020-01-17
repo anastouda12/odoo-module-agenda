@@ -66,6 +66,15 @@ class Agenda(models.Model):
         required=True,
         store=True
     )
+
+    partner_id = fields.Many2one('res.partner', compute='_get_partner', 'Partner')
+
+    @api.depends('partner_id')
+    def _get_partner(self):
+        partner = self.env['res.users'].browse(self.env.uid).partner_id
+        for rec in self:
+            rec.partner_id = partner.id
+
     @api.depends('events_ids')
     def _compute_event(self):
         for record in self:
@@ -241,6 +250,14 @@ class Event(models.Model):
                           default=get_default_img("event"))
 
     color = fields.Integer()
+
+    partner_id = fields.Many2one('res.partner', compute='_get_partner', 'Partner')
+
+    @api.depends('partner_id')
+    def _get_partner(self):
+        partner = self.env['res.users'].browse(self.env.uid).partner_id
+        for rec in self:
+            rec.partner_id = partner.id
 
     @api.depends('attendees_ids')
     def _compute_attendees(self):

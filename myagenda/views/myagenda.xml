@@ -75,13 +75,13 @@
                     <field name="image" widget="image" class="oe_avatar" />
                     <group>
                         <group string="General">
-                            <field name="name" />
-                            <field name="organizer_id" />
-                            <field name="type_agenda" />
+                            <field name="name" attrs="{'readonly':[('organizer_id','!=','partner_id')]}" />
+                            <field name="organizer_id" attrs="{'readonly':[('organizer_id','!=','partner_id')]}" />
+                            <field name="type_agenda" attrs="{'readonly':[('organizer_id','!=','partner_id')]}" />
                         </group>
                         <group string="Description" colspan="6">
                             <hr colspan="6" style="border-top: 1px solid #e0dcdc" class="oe_read_only" />
-                            <field name="description" widget="html" colspan="6" nolabel="1" />
+                            <field name="description" widget="html" colspan="6" nolabel="1" attrs="{'readonly':[('organizer_id','!=','partner_id')]}" />
                             <hr colspan="6" style="border-top: 1px solid #e0dcdc" class="oe_read_only" />
                         </group>
                     </group>
@@ -89,9 +89,9 @@
                     <notebook>
                         <page string="Events">
                             <field name="events_ids"
-                                context="{'default_agenda_id' : id,'form_view_ref': 'myagenda.event_form_view'}">
+                                context="{'default_agenda_id' : id,'form_view_ref': 'myagenda.event_form_view'}" attrs="{'readonly':[('organizer_id','!=','partner_id')]}">
                                 <tree string="Event's agenda" editable="bottom">
-                                    <field name="name" />
+                                    <field name="name" attrs="{'readonly':[('organizer_id','!=','partner_id')]}" />
                                     <field name="agenda_id" widget="selection" invisible="1" />
                                     <field name="organizer_id" widget="selection" />
                                     <field name="start_date" />
