@@ -14,4 +14,41 @@
   <record id="group_administrator" model="res.groups">
     <field name="name">MyAgenda / Administrator</field>
   </record>
+
+  <record id="only_author_agenda_can_create_event_student" model="ir.rule">
+    <field name="name">Only Author of that agenda can create event student</field>
+    <field name="model_id" ref="model_myagenda_event_student" />
+    <field name="perm_read" eval="0" />
+    <field name="perm_write" eval="0" />
+    <field name="perm_create" eval="1" />
+    <field name="perm_unlink" eval="0" />
+    <field name="domain_force">
+      [('organizer_id','=',user.partner_id.id)]
+    </field>
+  </record>
+
+    <record id="only_author_agenda_can_create_event_pedagogic" model="ir.rule">
+    <field name="name">Only Author of that agenda can create event pedagogic</field>
+    <field name="model_id" ref="model_myagenda_event_pedagogic" />
+    <field name="perm_read" eval="0" />
+    <field name="perm_write" eval="0" />
+    <field name="perm_create" eval="1" />
+    <field name="perm_unlink" eval="0" />
+    <field name="domain_force">
+      [('organizer_id','=',user.partner_id.id)]
+    </field>
+  </record>
+
+
+  <record id="only_author_agenda_can_create_event" model="ir.rule">
+    <field name="name">Only Author of that agenda can create event administrative</field>
+    <field name="model_id" ref="model_myagenda_event_administrative" />
+    <field name="perm_read" eval="0" />
+    <field name="perm_write" eval="0" />
+    <field name="perm_create" eval="1" />
+    <field name="perm_unlink" eval="0" />
+    <field name="domain_force">
+      [('organizer_id','=',user.partner_id.id)]
+    </field>
+  </record>
 </odoo>

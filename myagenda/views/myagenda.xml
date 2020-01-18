@@ -323,19 +323,24 @@
                             <field name="type_agenda" invisible="True"
                                 attrs="{'readonly':['&amp;',('id','>',0),('rules_edit','=',False)]}" />
                             <field name="agenda_id" options="{'no_quick_create':True,'no_create_edit':True}"
-                                widget="selection" attrs="{'readonly':['&amp;',('id','>',0),('rules_edit','=',False)]}" />
+                                widget="selection"
+                                attrs="{'readonly':['&amp;',('id','>',0),('rules_edit','=',False)]}" />
                             <field name="organizer_id" options="{'no_quick_create':True,'no_create_edit':True}"
                                 widget="selection" />
                             <field name="typeEvent" widget="selection"
                                 attrs="{'readonly':['&amp;',('id','>',0),('rules_edit','=',False)]}" />
                         </group>
                         <group string="Schedule">
-                            <field name="start_date" attrs="{'readonly':['&amp;',('id','>',0),('rules_edit','=',False)]}" />
-                            <field name="end_date" attrs="{'readonly':['&amp;',('id','>',0),('rules_edit','=',False)]}" />
+                            <field name="start_date"
+                                attrs="{'readonly':['&amp;',('id','>',0),('rules_edit','=',False)]}" />
+                            <field name="end_date"
+                                attrs="{'readonly':['&amp;',('id','>',0),('rules_edit','=',False)]}" />
                             <field name="duration" widget="float_time"
                                 attrs="{'readonly':['&amp;',('id','>',0),('rules_edit','=',False)]}" />
-                            <field name="location" attrs="{'readonly':['&amp;',('id','>',0),('rules_edit','=',False)]}" />
-                            <field name="periodicity" attrs="{'readonly':['&amp;',('id','>',0),('rules_edit','=',False)]}" />
+                            <field name="location"
+                                attrs="{'readonly':['&amp;',('id','>',0),('rules_edit','=',False)]}" />
+                            <field name="periodicity"
+                                attrs="{'readonly':['&amp;',('id','>',0),('rules_edit','=',False)]}" />
                         </group>
                         <group string="Description" colspan="6" style="">
                             <hr colspan="6" style="border-top: 1px solid #e0dcdc" class="oe_read_only" />
@@ -353,7 +358,8 @@
                         </group>
                         <group class="oe_edit_only" colspan="2" string="State">
                             <field name="attendees_count" />
-                            <field name="max_registration" attrs="{'readonly':['&amp;',('id','>',0),('rules_edit','=',False)]}" />
+                            <field name="max_registration"
+                                attrs="{'readonly':['&amp;',('id','>',0),('rules_edit','=',False)]}" />
                         </group>
                     </group>
                     <notebook>
