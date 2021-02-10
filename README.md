@@ -1,4 +1,4 @@
-# Agenda management
+# Agenda MODULE
 
 <img src="module.png" style="width:50px;height:50px;"/>
 
